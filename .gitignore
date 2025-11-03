@@ -1,0 +1,19 @@
+# Frontend (Angular)
+insertcoin_frontend/node_modules/
+insertcoin_frontend/dist/
+insertcoin_frontend/.angular/
+insertcoin_frontend/.vscode/
+
+# Backend (Spring Boot)
+insertcoin_backend/target/
+insertcoin_backend/.idea/
+insertcoin_backend/.vscode/
+insertcoin_backend/*.iml
+insertcoin_backend/.classpath
+insertcoin_backend/.project
+insertcoin_backend/.settings/
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.log
