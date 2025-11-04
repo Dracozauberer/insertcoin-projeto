@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { VitrineComponent } from './vitrine/vitrine.component';
-import { SobreComponent } from './sobre/sobre.component';
-import { ContatoComponent } from './contato/contato.component';
-import { CadastroComponent } from './cadastro/cadastro.component';
+import { Vitrine } from './vitrine/vitrine';
+import { Sobre } from './sobre/sobre';
+import { Contato } from './contato/contato';
+import { Cadastro } from './cadastro/cadastro';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/vitrine', pathMatch: 'full' },
-  { path: 'vitrine', component: VitrineComponent },
-  { path: 'sobre', component: SobreComponent },
-  { path: 'contato', component: ContatoComponent },
-  { path: 'cadastro', component: CadastroComponent }
+    {path: '', redirectTo: '/vitrine', pathMatch: 'full'},
+    {path:"vitrine", component:Vitrine},
+    {path:"contato", component:Contato},
+    {path:"sobre", component:Sobre},
+    {path:"cadastro", component:Cadastro}
 ];

@@ -1,0 +1,33 @@
+<h3>Cadastro de cliente</h3>
+<div class="alert alert-info">{{mensagem}}</div>
+
+
+<input type="hidden" class="form-control" [(ngModel)]="obj.codigo"><br>
+   <label class="form-label">nome:</label>
+<input type="text" class="form-control" [(ngModel)]="obj.nome"><br>
+
+<label class="form-label">email:</label>
+<input type="email" class="form-control" [(ngModel)]="obj.email"><br>
+
+<label class="form-label">senha:</label>
+<input type="password" class="form-control" [(ngModel)]="obj.senha"><br>
+
+<label class="form-label">documento:</label>
+<input type="text" class="form-control" [(ngModel)]="obj.documento"><br>
+
+<label class="form-label">telefone:</label>
+<input type="tel" class="form-control" [(ngModel)]="obj.telefone"><br>
+
+<label class="form-label">logradouro:</label>
+<input type="text" class="form-control" [(ngModel)]="obj.logradouro"><br>
+
+<label class="form-label">cidade:</label>
+<input type="text" class="form-control" [(ngModel)]="obj.cidade"><br>
+
+<label class="form-label">cep:</label>
+<input type="text" class="form-control" [(ngModel)]="obj.cep"><br>
+
+<label class="form-label">complemento:</label>
+<input type="text" class="form-control" [(ngModel)]="obj.complemento"><br>
+
+<button class="btn btn-success" (click)="gravar()">Gravar</button>

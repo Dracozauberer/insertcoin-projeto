@@ -1,0 +1,33 @@
+<h3 class="titulo">Fale Conosco</h3>
+Envie a sua mensagem em breve entraremos em contato.<br><br>
+<b>{{alerta}}</b>
+<br><br>
+    <label class="form-label">nome:</label>
+    <input type="text" [(ngModel)]="nome" class="form-control"  ><br>
+    <label class="form-label">email:</label>
+    <input type="email" [(ngModel)]="email" class="form-control" ><br>
+    <label class="form-label">numero pedido:</label>
+    <input type="number" [(ngModel)]="numeroPedido" class="form-control" ><br>
+    <label class="form-label">telefone:</label>
+    <input type="text" [(ngModel)]="telefone" class="form-control" ><br>
+    <label class="form-label">data nascimento:</label>
+    <input type="date" id="dtnascimento" class="form-control" ><br>
+    <label class="form-label">melhor horario para falarmos:</label>
+    <input type="time" id="hora" class="form-control" ><br>    
+    <label class="form-label"></label>deseja receber uma copia dessa mensagem:
+    <input type="radio" id="opS" name="copia">Sim
+    <input type="radio" id="opN" name="copia" checked>Não<br>
+    <label  class="form-label">Assunto:</label>
+    <select [(ngModel)]="assunto" class="form-control" >
+        <option>Pedidos</option>
+        <option>devolução</option>
+        <option>Sugestões</option>
+        <option>Elogios</option>
+    </select><br>
+    <label  class="form-label">Descritivo:</label>
+    <textarea [(ngModel)]="mensagem" rows="5" class="form-control"  ></textarea><br>
+    <label></label><input type="checkbox" id="aceito">Declaro que minhas informações
+    serão usadas para a resolução do meu contato exclusivamente<br>
+    <label></label><button id="btn" (click)="enviarEmail()"
+    class="btn btn-success">Enviar</button>
+
