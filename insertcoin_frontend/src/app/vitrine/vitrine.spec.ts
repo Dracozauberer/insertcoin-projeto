@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SobreComponent } from './sobre.component';
+import { Vitrine } from './vitrine';
 
-describe('SobreComponent', () => {
-  let component: SobreComponent;
-  let fixture: ComponentFixture<SobreComponent>;
+describe('Vitrine', () => {
+  let component: Vitrine;
+  let fixture: ComponentFixture<Vitrine>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SobreComponent]
+      imports: [Vitrine]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(SobreComponent);
+
+    fixture = TestBed.createComponent(Vitrine);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

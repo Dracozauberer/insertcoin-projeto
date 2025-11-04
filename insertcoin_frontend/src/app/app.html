@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Coin — Jogos & Consoles Retrô</title>
+    <link rel="shortcut icon" href="" type="image/x-icon">
+    <style>
+        @font-face {
+          font-family: 'Pixel';
+          src:url('/assets/fonts/Pixel-Digivolve.woff') format('woff');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+        }
+
+        :root {
+          --pac-size: 40px;
+          --pellet-size: 10px;
+        }
+
+        .bolinha {
+        width: var(--pellet-size);
+        height: var(--pellet-size);
+        border-radius: 50%;
+        background: white;
+        position: absolute;
+        pointer-events: none;
+        }
+
+        #pacman {
+        width: var(--pac-size);
+        height: var(--pac-size);
+        position: absolute;
+        transform-origin: center center;
+        user-select: none;
+        cursor: pointer;
+        }
+
+        #pacman svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        }
+    </style>
+</head>
+<body>    
+  <div id="pacman" title="Clique para inverter direção">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path id="pacPath" fill="yellow" stroke="none"></path>
+    </svg>
+  </div>
+  <header>
+    <div class="brand">
+      <img class="card-img-top" src="./assets/coin_Transp.png" width="56px" height="56px" alt="logo">
+      <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P';color:#000">IC</div>
+      <div>
+        <div class="logo">Insert Coin</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">Jogos & Consoles Clássicos</div>
+      </div>
+    </div>
+
+    <nav>
+      <a href="./vitrine" class="btn-nav">Vitrine</a>
+      <a href="./cadastro" class="btn-nav">Cadastro</a>
+      <a href="./sobre" class="btn-nav">Sobre</a>
+      <a href="./contato" class="btn-nav">Contato</a>
+    </nav>
+
+    <div class="actions">
+      <div class="search" role="search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="white" stroke-opacity="0.6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <input type="search" placeholder="Buscar jogos, consoles..." aria-label="Buscar">
+      </div>
+      <button class="btn">Carrinho (0)</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-card">
+        <h1 class="hero-title">Volte aos pixels: coleções raras e clássicos</h1>
+        <p class="hero-sub">Cartuchos originais, consoles restaurados e acessórios vintage — curados por fãs para fãs. Frete para todo o Brasil, garantia de autenticidade e opções de conserto.</p>
+
+        <div class="cta-row">
+          <button class="btn">Ver lançamentos</button>
+          <button style="background:transparent;border:1px solid rgba(255,255,255,0.2);padding:10px 12px;border-radius:10px;color:var(--muted);font-weight:700">Coleções</button>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+          <div class="tag">Frete grátis a partir de R$199</div>
+          <div class="tag">Autenticidade garantida</div>
+          <div class="tag">Troca em 7 dias</div>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <div class="console-hero">
+          <div class="pixel-image">Console restaurado — Nintendo Classic</div>
+          <p style="margin:8px 0 0 0;font-size:13px;color:var(--muted)">Peças originais, limpeza profissional e garantia de 30 dias.</p>
+        </div>
+
+        <div class="hero-card" style="width:100%;padding:12px;display:flex;gap:12px;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-size:12px;color:var(--muted)">Curadoria da semana</div>
+            <div style="font-family:'Press Start 2P';margin-top:6px;color:var(--accent1)">Top cartuchos: Mega Drive</div>
+          </div>
+          <button style="padding:8px 10px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.2);font-weight:700;color:var(--muted)">Ver lista</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="products">
+      <h2 style="font-family:'Press Start 2P';font-size:14px;color:var(--accent1)">Destaques</h2>
+      <p style="color:var(--muted);margin-top:6px;margin-bottom:12px">Peças selecionadas com cuidado — atualização semanal.</p>
+
+      <div class="grid">
+        <!-- produtos mantidos -->
+      </div>
+    </section>
+    <router-outlet />
+
+    <footer>
+      <div>
+        © Insert Coin — Todos os direitos reservados<br>
+        Rua do Pixel, 123 — São Paulo, SP
+      </div>
+      <div style="text-align:right">
+        <div>Suporte: contato@insertcoin.com</div>
+        <div style="margin-top:6px;color:var(--muted)">Pagamento seguro • Envio em 24h úteis</div>
+      </div>
+    </footer>
+  </main>
+   <script>
+    /* ---------- utilitário SVG ---------- */
+    function polarToCartesian(cx, cy, r, angleDeg) {
+      const a = (angleDeg) * Math.PI / 180;
+      return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+    }
+
+    function describePac(cx, cy, r, mouthAngleDeg) {
+      const start = mouthAngleDeg / 2;
+      const end = 360 - mouthAngleDeg / 2;
+      const p1 = polarToCartesian(cx, cy, r, start);
+      const p2 = polarToCartesian(cx, cy, r, end);
+      const delta = (end - start + 360) % 360;
+      const largeArcFlag = delta > 180 ? 1 : 0;
+      return `M ${cx} ${cy} L ${p1.x.toFixed(3)} ${p1.y.toFixed(3)} A ${r} ${r} 0 ${largeArcFlag} 1 ${p2.x.toFixed(3)} ${p2.y.toFixed(3)} Z`;
+    }
+
+    /* ---------- animação boca ---------- */
+    const pac = document.getElementById('pacman');
+    const pacPath = document.getElementById('pacPath');
+
+    const PAC_SIZE = 40;
+    const CX = PAC_SIZE/2;
+    const CY = PAC_SIZE/2;
+    const R = PAC_SIZE/2 - 1;
+
+    const MOUTH_MIN = 8;
+    const MOUTH_MAX = 65;
+    const CHOMP_FREQ = 3.5;
+
+    let startTime = null;
+    function animateMouth(ts) {
+      if (!startTime) startTime = ts;
+      const elapsed = (ts - startTime) / 1000;
+      const t = Math.sin(elapsed * Math.PI * 2 * CHOMP_FREQ);
+      const mouth = MOUTH_MIN + (MOUTH_MAX - MOUTH_MIN) * ((t + 1) / 2);
+      pacPath.setAttribute('d', describePac(CX, CY, R, mouth));
+      requestAnimationFrame(animateMouth);
+    }
+    requestAnimationFrame(animateMouth);
+
+    /* ---------- movimento e bolinhas ---------- */
+    let direction = 1;
+    let pos = { x: 0, y: 0 };
+    let step = 2;
+    let edge = "top";
+
+    const OFFSET = 20; // afastamento das bolinhas da borda
+
+    function criarBolinhas() {
+      const espacamento = 50;
+      const largura = window.innerWidth;
+      const altura = window.innerHeight;
+
+      // Topo
+      for (let x = OFFSET; x < largura - OFFSET; x += espacamento) {
+        criarBolinha(x, OFFSET);
+      }
+      // Direita
+      for (let y = OFFSET; y < altura - OFFSET; y += espacamento) {
+        criarBolinha(largura - OFFSET, y);
+      }
+      // Base
+      for (let x = OFFSET; x < largura - OFFSET; x += espacamento) {
+        criarBolinha(x, altura - OFFSET);
+      }
+      // Esquerda
+      for (let y = OFFSET; y < altura - OFFSET; y += espacamento) {
+        criarBolinha(OFFSET, y);
+      }
+    }
+
+    function criarBolinha(x, y) {
+      const bolinha = document.createElement("div");
+      bolinha.classList.add("bolinha");
+      bolinha.style.left = x + "px";
+      bolinha.style.top = y + "px";
+      document.body.appendChild(bolinha);
+    }
+
+    criarBolinhas();
+
+    function moverPacman() {
+      const largura = window.innerWidth;
+      const altura = window.innerHeight;
+
+      if (edge === "top") {
+        pos.x += step * direction;
+        if (pos.x >= largura - PAC_SIZE) { edge = "right"; pos.x = largura - PAC_SIZE; }
+        if (pos.x <= 0) { edge = "left"; pos.x = 0; }
+        setPacRotation(direction === 1 ? 0 : 180);
+      } else if (edge === "right") {
+        pos.y += step * direction;
+        if (pos.y >= altura - PAC_SIZE) { edge = "bottom"; pos.y = altura - PAC_SIZE; }
+        if (pos.y <= 0) { edge = "top"; pos.y = 0; }
+        setPacRotation(direction === 1 ? 90 : 270);
+      } else if (edge === "bottom") {
+        pos.x -= step * direction;
+        if (pos.x <= 0) { edge = "left"; pos.x = 0; }
+        if (pos.x >= largura - PAC_SIZE) { edge = "right"; pos.x = largura - PAC_SIZE; }
+        setPacRotation(direction === 1 ? 180 : 0);
+      } else if (edge === "left") {
+        pos.y -= step * direction;
+        if (pos.y <= 0) { edge = "top"; pos.y = 0; }
+        if (pos.y >= altura - PAC_SIZE) { edge = "bottom"; pos.y = altura - PAC_SIZE; }
+        setPacRotation(direction === 1 ? 270 : 90);
+      }
+
+      pac.style.left = pos.x + "px";
+      pac.style.top = pos.y + "px";
+
+      comerBolinhas();
+      requestAnimationFrame(moverPacman);
+    }
+
+    function setPacRotation(deg) {
+      pac.style.transform = `rotate(${deg}deg)`;
+    }
+
+    function comerBolinhas() {
+      const pacRect = pac.getBoundingClientRect();
+      const bolinhas = document.querySelectorAll(".bolinha");
+
+      bolinhas.forEach(bolinha => {
+        const bolRect = bolinha.getBoundingClientRect();
+        if (
+          pacRect.left < bolRect.right &&
+          pacRect.right > bolRect.left &&
+          pacRect.top < bolRect.bottom &&
+          pacRect.bottom > bolRect.top
+        ) {
+          const x = bolinha.style.left;
+          const y = bolinha.style.top;
+          bolinha.remove();
+          setTimeout(() => {
+            criarBolinha(parseInt(x), parseInt(y));
+          }, 10000);
+        }
+      });
+    }
+
+    pac.addEventListener("click", () => {
+      direction *= -1;
+    });
+
+    moverPacman();
+
+    window.addEventListener('resize', () => {
+      document.querySelectorAll('.bolinha').forEach(b => b.remove());
+      criarBolinhas();
+    });
+  </script>
+</body>
+</html>
