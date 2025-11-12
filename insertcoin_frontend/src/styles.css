@@ -20,6 +20,16 @@ html,body{
     font-family:Inter,system-ui,Arial;
     background: linear-gradient(135deg, var(--accent2) 0%, var(--bg) 50%, #000 100%);
     color:#f5f5f5;
+    background-attachment: fixed;
+}
+
+main {
+    min-width: 300px;
+    max-width: 1000px;
+    margin: auto;
+    margin-bottom: 30px;
+    padding: 20px;
+    box-shadow: 0px,0px 10px var(--cor9);
 }
 
 header{
@@ -38,28 +48,30 @@ header{
 
 .logo{
     font-family:'Press Start 2P', monospace;
-    font-size:16px;color:var(--accent1);
+    font-size:16px;
+    color:var(--accent1);
     letter-spacing:1px
 }
 
 nav{
     display:flex;
     gap:18px;
-    align-items:center
+    align-items:center;
+    padding: 20px 40px;
 }
 
 nav a{
     color:var(--muted);
     text-decoration:none;
     font-weight:600;
-    font-size:13px
+    font-size:15px;
 }
 
 nav a:hover{
     color:var(--accent1);
     text-decoration:none;
     font-weight:700;
-    font-size:13px;
+    font-size:15px;
 }
 
 input, select, textarea {
@@ -69,6 +81,10 @@ input, select, textarea {
     border-radius: 10px;
     padding: 9px;
     margin:5px;
+}
+
+.form-control{
+    width: auto;
 }
 
 .actions{
@@ -82,7 +98,8 @@ input, select, textarea {
     border:1px solid rgba(255,255,255,0.1);
     padding:8px 12px;
     border-radius:10px;
-    display:flex;gap:8px;
+    display:flex;
+    gap:8px;
     align-items:center
 }
 
@@ -92,7 +109,7 @@ input, select, textarea {
     outline:none;
     color:inherit;
     font-size:13px;
-    width:220px
+    width:170px;
 }
 
 .btn{
@@ -107,8 +124,18 @@ input, select, textarea {
 }
 
 
-.hero{display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:center;padding:28px;max-width:1200px;margin:18px auto}
-.hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.05), transparent);padding:28px;border-radius:16px;border:1px solid rgba(255,255,255,0.1)}
+.hero{display:grid;
+  grid-template-columns:1fr 420px;
+  gap:24px;
+  align-items:center;
+  padding:28px;
+  max-width:1200px;
+  margin:18px auto
+}
+.hero-card{
+  background:linear-gradient(180deg, rgba(255,255,255,0.05), transparent);padding:28px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.1)}
 .hero-title{font-family:'Press Start 2P', monospace;font-size:28px;color:var(--accent1);margin:0}
 .hero-sub{color:var(--muted);margin-top:10px;line-height:1.5}
 .cta-row{margin-top:20px;display:flex;gap:12px}
@@ -129,8 +156,50 @@ input, select, textarea {
 footer{max-width:1200px;margin:36px auto;padding:18px 28px;color:var(--muted);border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between}
 
 
-@media (max-width:880px){
-.hero{grid-template-columns:1fr;}
-.search input{width:120px}
-header{padding:14px}
+/* Responsividade */
+@media (max-width: 800px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .actions {
+    padding: 2rem 1rem;
+  }
+
+  .actions h2 {
+    font-size: 1.2rem;
+  }
+
+  .actions button {
+    font-size: 0.9rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  .hero-card{
+
+  }
+
+  .produto {
+    width: 90%;
+  }
+
+  nav a {
+    margin: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 0.9rem;
+  }
+
+  .actions h2 {
+    font-size: 1rem;
+  }
+
+  .produto {
+    width: 100%;
+    font-size: 0.8rem;
+  }
 }
