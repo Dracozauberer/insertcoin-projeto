@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 @RestController
 @CrossOrigin(origins = "*")
 public class ClienteController {
@@ -23,7 +25,7 @@ public class ClienteController {
     private InsertcoinService util;
 
     @PostMapping("/api/cliente") 
-    public void gravar(@RequestBody Cliente obj){
+    public String gravar(@Valid @RequestBody Cliente obj){
         obj.setSenha(util.md5(obj.getSenha()));
         bd.save(obj);
         String email = "<b>Email de confirmação de cadastro</b><br><br>" +
@@ -32,6 +34,8 @@ public class ClienteController {
                     "<a href='http://localhost:8081/api/cliente/efetivar/"+ util.md5(obj.getEmail()) +"'>Clique aqui</a>";
         String retorno = util.enviaEmailHTML(obj.getEmail(), "Confirmação de novo cadastro", email);
         System.out.println("Cliente gravado com sucesso! "+ retorno);
+
+        return retorno;
     }
 
     @PutMapping("/api/cliente")

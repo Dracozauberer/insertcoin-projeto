@@ -1,17 +1,33 @@
 package com.insertcoin.loja;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.*;
+
 
 @Entity
 public class Cliente {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
+
+    @NotBlank(message = "Nome é obrigatório")
+    @Size(min = 3, max = 100, message = "Nome deve ter entre 3 e 100 caracteres")
     private String nome;
+
+    @NotBlank(message = "Email é obrigatório")
+    @Email(message = "Email inválido")
     private String email;
+
     private String senha;
     private String documento;
+
+    @NotBlank(message = "Telefone é obrigatório")
+    @Pattern(regexp = "\\d{10,11}", message = "Telefone deve ter 10 ou 11 dígitos")
     private String telefone;
+    
     private String logradouro;
     private String cidade;
     private String cep;

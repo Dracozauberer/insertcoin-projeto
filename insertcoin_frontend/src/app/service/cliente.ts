@@ -24,4 +24,11 @@ export class ClienteService {
   listar(): Observable<any> {
     return this.http.get("http://localhost:8080/api/clientes");
   }
+  fazerLogin(obj:Cliente): Observable<any> {
+    return this.http.post("http://localhost:8080/api/cliente/login", obj);
+  }
+  
+  listarInativos(): Observable<any> {
+    return this.http.get("http://localhost:8080/api/cliente/inativos");
+  }
 }

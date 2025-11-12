@@ -2,32 +2,31 @@
 <div class="alert alert-info">{{mensagem}}</div>
 
 
-<input type="hidden" class="form-control" [(ngModel)]="obj.codigo"><br>
-   <label class="form-label">nome:</label>
+   <label class="form-label">Nome:</label>
 <input type="text" class="form-control" [(ngModel)]="obj.nome"><br>
 
-<label class="form-label">email:</label>
+<label class="form-label">Email:</label>
 <input type="email" class="form-control" [(ngModel)]="obj.email"><br>
 
-<label class="form-label">senha:</label>
+<label class="form-label">Senha:</label>
 <input type="password" class="form-control" [(ngModel)]="obj.senha"><br>
 
-<label class="form-label">documento:</label>
+<label class="form-label">Documento:</label>
 <input type="text" class="form-control" [(ngModel)]="obj.documento"><br>
 
-<label class="form-label">telefone:</label>
+<label class="form-label">Telefone:</label>
 <input type="tel" class="form-control" [(ngModel)]="obj.telefone"><br>
 
-<label class="form-label">logradouro:</label>
+<label class="form-label">Logradouro:</label>
 <input type="text" class="form-control" [(ngModel)]="obj.logradouro"><br>
 
-<label class="form-label">cidade:</label>
+<label class="form-label">Cidade:</label>
 <input type="text" class="form-control" [(ngModel)]="obj.cidade"><br>
 
-<label class="form-label">cep:</label>
+<label class="form-label">CEP:</label>
 <input type="text" class="form-control" [(ngModel)]="obj.cep"><br>
 
-<label class="form-label">complemento:</label>
+<label class="form-label">Complemento:</label>
 <input type="text" class="form-control" [(ngModel)]="obj.complemento"><br>
 
-<button class="btn btn-success" (click)="gravar()">Gravar</button>
+<button type="button" (click)="gravar()">Gravar</button> 
