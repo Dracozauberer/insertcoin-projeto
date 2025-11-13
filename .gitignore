@@ -5,6 +5,8 @@ insertcoin_frontend/.angular/
 insertcoin_frontend/.vscode/
 
 # Backend (Spring Boot)
+insertcoin_backend/src/main/resources/application.properties
+insertcoin_backend/src/main/resources/application-*.properties
 insertcoin_backend/target/
 insertcoin_backend/.idea/
 insertcoin_backend/.vscode/

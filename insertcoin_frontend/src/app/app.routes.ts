@@ -11,6 +11,7 @@ export const routes: Routes = [
   { path: 'vitrine', component: Vitrine },
   { path: 'contato', component: Contato },
   { path: 'sobre', component: Sobre },
-  { path: 'cadastro', component: Cadastro },
+  { path: 'cadastro', component: Cadastro }
 ];
+
 
