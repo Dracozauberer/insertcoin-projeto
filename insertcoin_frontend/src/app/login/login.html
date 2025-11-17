@@ -1,1 +1,56 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>🎮 Bem-vindo de volta!</h1>
+      <p>Entre para continuar sua jornada retrô</p>
+    </div>
+
+    <form (ngSubmit)="fazerLogin()" class="login-form">
+      
+      <!-- Campo Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email"
+          name="email"
+          [(ngModel)]="obj.email" 
+          placeholder="seu@email.com"
+          required
+          autocomplete="email"
+        />
+      </div>
+
+      <!-- Campo Senha -->
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input 
+          type="password" 
+          id="senha"
+          name="senha"
+          [(ngModel)]="obj.senha" 
+          placeholder="••••••••"
+          required
+          autocomplete="current-password"
+        />
+      </div>
+
+      <!-- Mensagem de erro/sucesso -->
+      <div *ngIf="mensagem" class="mensagem" [ngClass]="{'sucesso': mensagem.includes('sucesso'), 'erro': !mensagem.includes('sucesso')}">
+        {{ mensagem }}
+      </div>
+
+      <!-- Botão de Login -->
+      <button type="submit" class="btn-login">
+        Entrar
+      </button>
+
+      <!-- Links extras -->
+      <div class="login-footer">
+        <a routerLink="/cadastro" class="link">Não tem conta? Cadastre-se</a>
+        <a href="#" class="link">Esqueci minha senha</a>
+      </div>
+
+    </form>
+  </div>
+</div>

@@ -25,6 +25,11 @@ export class ClienteService {
     return this.http.get("http://localhost:8080/api/clientes");
   }
   fazerLogin(obj:Cliente): Observable<any> {
+    const loginData = {
+    email: obj.email,
+    senha: obj.senha
+  };
+
     return this.http.post("http://localhost:8080/api/cliente/login", obj);
   }
   

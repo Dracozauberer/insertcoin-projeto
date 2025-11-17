@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProdutoService {
   constructor(private http: HttpClient) { }
-
+  
   gravar(obj:Produto) : Observable<any> {
     return this.http.post("http://localhost:8080/api/produto", obj);
   }
@@ -26,5 +26,8 @@ export class ProdutoService {
   }
   vitrine(): Observable<any> {
     return this.http.get("http://localhost:8080/api/produtos/vitrine");
+  }
+  buscar(termo: string): Observable<any> {
+    return this.http.get(`http://localhost:8080/api/produtos/busca/${termo}`);
   }
 }
