@@ -1,0 +1,100 @@
+<main class="checkout-container">
+  <h1>🛒 Finalizar Compra</h1>
+  
+  <div class="checkout-content">
+    
+    <!-- DADOS DO CLIENTE -->
+    <div class="secao">
+      <h2>Dados do Cliente</h2>
+      <div class="cliente-info">
+        <p><strong>Nome:</strong> {{ usuario?.nome }}</p>
+        <p><strong>Email:</strong> {{ usuario?.email }}</p>
+        <p><strong>Telefone:</strong> {{ usuario?.telefone }}</p>
+        
+        <div *ngIf="usuario?.logradouro">
+          <p><strong>Endereço:</strong></p>
+          <p>{{ usuario.logradouro }}</p>
+          <p>{{ usuario.cidade }} - CEP: {{ usuario.cep }}</p>
+          <p *ngIf="usuario.complemento">{{ usuario.complemento }}</p>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="secao">
+      <h2>📦 Itens do Pedido</h2>
+      <div class="itens-resumo">
+        <div class="item-linha" *ngFor="let item of itens">
+          <div class="item-info-resumo">
+            <img 
+              [src]="item.produto.codigo + '.jpg'" 
+              [alt]="item.produto.nome"
+              onerror="this.src='no-image.jpg'"
+              class="item-thumb">
+            <div>
+              <p class="item-nome">{{ item.produto.nome }}</p>
+              <p class="item-detalhes">
+                {{ item.quantidade }}x R$ {{ getPreco(item) | number:'1.2-2' }}
+              </p>
+            </div>
+          </div>
+          <div class="item-subtotal">
+            R$ {{ getSubtotal(item) | number:'1.2-2' }}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="secao resumo-total">
+      <h2>💰 Resumo do Pedido</h2>
+      
+      <div class="resumo-linha">
+        <span>Subtotal:</span>
+        <span>R$ {{ valorTotal | number:'1.2-2' }}</span>
+      </div>
+      
+      <div class="resumo-linha">
+        <span>Frete:</span>
+        <span class="frete-gratis">GRÁTIS</span>
+      </div>
+      
+      <div class="resumo-linha total">
+        <span><strong>Total:</strong></span>
+        <span><strong>R$ {{ valorTotal | number:'1.2-2' }}</strong></span>
+      </div>
+    </div>
+    
+    
+    <div class="secao">
+      <h2>💳 Forma de Pagamento</h2>
+      <p class="info-pagamento">
+        O pagamento será processado na entrega.<br>
+        Você receberá um email com os detalhes do pedido.
+      </p>
+    </div>
+    
+    
+    <div *ngIf="mensagem" class="alert alert-danger">
+      {{ mensagem }}
+    </div>
+    
+    
+    <div class="acoes">
+      <button 
+        (click)="voltarParaCarrinho()" 
+        class="btn-voltar"
+        [disabled]="processando">
+        ← Voltar ao Carrinho
+      </button>
+      
+      <button 
+        (click)="finalizarPedido()" 
+        class="btn-finalizar"
+        [disabled]="processando">
+        <span *ngIf="!processando">✅ Confirmar Pedido</span>
+        <span *ngIf="processando">⏳ Processando...</span>
+      </button>
+    </div>
+    
+  </div>
+</main>

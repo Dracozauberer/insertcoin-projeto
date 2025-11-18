@@ -6,6 +6,9 @@ import { Cadastro } from './cadastro/cadastro';
 import { Home } from './home/home';
 import { Login } from './login/login';
 import { DetalheProduto } from './detalhe-produto/detalhe-produto';
+import { Carrinho } from './carrinho/carrinho';
+import { Checkout } from './checkout/checkout';
+import { PedidoConfirmado } from './pedido-confirmado/pedido-confirmado';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -15,8 +18,10 @@ export const routes: Routes = [
   { path: 'sobre', component: Sobre },
   { path: 'cadastro', component: Cadastro },
   { path: 'produto/:codigo', component: DetalheProduto },
-  { path: 'login', component: Login }
-  
+  { path: 'login', component: Login },
+  { path: 'carrinho', component: Carrinho },
+  { path: 'checkout', component: Checkout },         
+  { path: 'pedido-confirmado', component: PedidoConfirmado }
 
 ];
 

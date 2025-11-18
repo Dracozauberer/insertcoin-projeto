@@ -73,7 +73,7 @@
             <button (click)="aumentarQuantidade()" [disabled]="quantidade >= produto.quantidade">+</button>
           </div>
           
-          <button (click)="adicionarAoCarrinho()" class="btn-comprar">
+          <button (click)="adicionarAoCarrinho(produto)" class="btn-comprar">
             🛒 Adicionar ao Carrinho
           </button>
         </div>

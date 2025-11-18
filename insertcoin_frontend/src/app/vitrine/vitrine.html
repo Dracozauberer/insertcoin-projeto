@@ -21,7 +21,8 @@
         R${{obj.promo}}
     </div></div>
     <a [routerLink]="['/produto', obj.codigo]" class="btn btn-primary">+ detalhes</a>
-    <a href="#" class="btn btn-primary"*ngIf="obj.quantidade>0">+ comprar</a>
+    <button (click)="adicionarAoCarrinho(obj)" class="btn btn-primary" *ngIf="obj.quantidade>0"> 🛒 Comprar </button>
+
   </div>
 </div>
 </div>

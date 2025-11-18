@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Produto } from '../model/produto';
 import { ProdutoService } from '../service/produto';
+import { CarrinhoService } from '../service/carrinho.service';
+
 
 @Component({
   selector: 'app-produto-detalhe',
@@ -22,15 +24,25 @@ export class DetalheProduto implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: ProdutoService
+    private service: ProdutoService,
+    private carrinhoService: CarrinhoService
   ) {}
   
   ngOnInit(): void {
-    // Pega o código da URL
+    
     const codigo = this.route.snapshot.paramMap.get('codigo');
     
     if (codigo) {
-      this.carregarProduto(+codigo); // + converte string para número
+      this.carregando = true;
+      this.service.carregar(+codigo).subscribe({
+      next: (data) => {
+        this.produto = data;
+        this.carregando = false;
+      },
+      error: (error) => {
+        this.carregando = false;
+      }
+    });
     }
   }
   
@@ -51,10 +63,9 @@ export class DetalheProduto implements OnInit {
     });
   }
   
-  adicionarAoCarrinho() {
-    // TODO: Implementar lógica do carrinho
-    console.log(`Adicionando ${this.quantidade}x ${this.produto.nome} ao carrinho`);
-    alert(`${this.quantidade}x ${this.produto.nome} adicionado ao carrinho!`);
+  adicionarAoCarrinho(produto: any) {
+    this.carrinhoService.adicionar(produto, 1);
+    alert(`${produto.nome} adicionado ao carrinho!`);
   }
   
   voltarParaVitrine() {
