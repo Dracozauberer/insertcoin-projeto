@@ -5,6 +5,7 @@ import { Contato } from './contato/contato';
 import { Cadastro } from './cadastro/cadastro';
 import { Home } from './home/home';
 import { Login } from './login/login';
+import { DetalheProduto } from './detalhe-produto/detalhe-produto';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -13,7 +14,10 @@ export const routes: Routes = [
   { path: 'contato', component: Contato },
   { path: 'sobre', component: Sobre },
   { path: 'cadastro', component: Cadastro },
+  { path: 'produto/:codigo', component: DetalheProduto },
   { path: 'login', component: Login }
+  
+
 ];
 
 

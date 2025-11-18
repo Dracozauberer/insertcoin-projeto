@@ -3,11 +3,12 @@ import { Produto } from '../model/produto';
 import { ProdutoService } from '../service/produto';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-vitrine',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './vitrine.html',
   styleUrl: './vitrine.css',
 })
