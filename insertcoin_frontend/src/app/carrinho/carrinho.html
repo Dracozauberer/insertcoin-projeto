@@ -1,0 +1,95 @@
+<main class="carrinho-container">
+  <h1>Meu Carrinho</h1>
+  
+  <!-- CARRINHO VAZIO -->
+  <div *ngIf="itens.length === 0" class="carrinho-vazio">
+    <p>Seu carrinho está vazio!</p>
+    <button (click)="continuarComprando()" class="btn-continuar">
+      Ver Produtos
+    </button>
+  </div>
+  
+  <!-- CARRINHO COM ITENS -->
+  <div *ngIf="itens.length > 0" class="carrinho-content">
+    
+    <!-- TABELA DE PRODUTOS -->
+    <div class="itens-lista">
+      <div class="item-card" *ngFor="let item of itens">
+        
+        <!-- IMAGEM -->
+        <div class="item-imagem">
+          <img 
+            [src]="item.produto.codigo + '.jpg'" 
+            [alt]="item.produto.nome"
+            onerror="this.src='no-image.jpg'">
+        </div>
+        
+        <!-- INFO -->
+        <div class="item-info">
+          <h3>{{ item.produto.nome }}</h3>
+          <p class="item-preco">
+            R$ {{ getPreco(item) | number:'1.2-2' }}
+          </p>
+        </div>
+        
+        <!-- QUANTIDADE -->
+        <div class="item-quantidade">
+          <button (click)="diminuirQuantidade(item)" [disabled]="item.quantidade <= 1">
+            −
+          </button>
+          <span>{{ item.quantidade }}</span>
+          <button (click)="aumentarQuantidade(item)" [disabled]="item.quantidade >= item.produto.quantidade">
+            +
+          </button>
+        </div>
+        
+        <!-- SUBTOTAL -->
+        <div class="item-subtotal">
+          <p>Subtotal:</p>
+          <p class="valor">R$ {{ getSubtotal(item) | number:'1.2-2' }}</p>
+        </div>
+        
+        <!-- REMOVER -->
+        <div class="item-remover">
+          <button (click)="remover(item)" class="btn-remover" title="Remover">
+            🗑️
+          </button>
+        </div>
+        
+      </div>
+    </div>
+    
+    <!-- RESUMO -->
+    <div class="resumo">
+      <h2>Resumo do Pedido</h2>
+      
+      <div class="resumo-linha">
+        <span>Subtotal ({{ itens.length }} itens):</span>
+        <span>R$ {{ valorTotal | number:'1.2-2' }}</span>
+      </div>
+      
+      <div class="resumo-linha">
+        <span>Frete:</span>
+        <span>A calcular</span>
+      </div>
+      
+      <div class="resumo-linha total">
+        <span><strong>Total:</strong></span>
+        <span><strong>R$ {{ valorTotal | number:'1.2-2' }}</strong></span>
+      </div>
+      
+      <button (click)="finalizarCompra()" class="btn-finalizar">
+        Finalizar Compra
+      </button>
+      
+      <button (click)="continuarComprando()" class="btn-continuar">
+        Continuar Comprando
+      </button>
+      
+      <button (click)="limparCarrinho()" class="btn-limpar">
+        Limpar Carrinho
+      </button>
+    </div>
+    
+  </div>
+</main>

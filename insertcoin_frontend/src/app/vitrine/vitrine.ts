@@ -3,11 +3,14 @@ import { Produto } from '../model/produto';
 import { ProdutoService } from '../service/produto';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { CarrinhoService } from '../service/carrinho.service';
+
 
 @Component({
   selector: 'app-vitrine',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './vitrine.html',
   styleUrl: './vitrine.css',
 })
@@ -17,12 +20,17 @@ export class Vitrine implements OnInit {
   lista: Produto[] = [];
   carregando: boolean = false; 
   
-  constructor(private service: ProdutoService) {} 
+  constructor(private service: ProdutoService, private carrinhoService: CarrinhoService) {} 
   
   ngOnInit(): void {
     this.carregarLista();
   }
   
+  adicionarAoCarrinho(produto: any) {
+    this.carrinhoService.adicionar(produto, 1);
+    alert(`${produto.nome} adicionado ao carrinho!`);
+  }
+
   carregarLista() {
     this.carregando = true; 
     

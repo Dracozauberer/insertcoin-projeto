@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { ProdutoService } from './service/produto';
 import { Produto } from './model/produto'; 
+import { CarrinhoService } from './service/carrinho.service';
+
 
 @Component({
   selector: 'app-root',
@@ -22,10 +24,17 @@ export class App {
   mostrarResultados: boolean = false;
   carregando: boolean = false;
 
+  quantidadeCarrinho: number = 0; 
+
 constructor(
     private produtoService: ProdutoService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private carrinhoService: CarrinhoService
+  ) {
+    this.carrinhoService.itens$.subscribe(itens => {
+      this.quantidadeCarrinho = this.carrinhoService.getQuantidadeTotal();
+    });
+  }
   
   fazerBusca() {
   
@@ -56,5 +65,10 @@ constructor(
     this.mostrarResultados = false;
     this.termoBusca = "";
     this.router.navigate(['/produto', codigo]);
+    
   }
+  irParaCarrinho() {
+  this.router.navigate(['/carrinho']);
+  }
+  
 }
