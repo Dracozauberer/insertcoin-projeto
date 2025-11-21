@@ -19,5 +19,7 @@ JpaRepository<Cliente, Integer>{
      nativeQuery=true)
      public List<Cliente> listaInativos();
 
+    @Query(value = "select * from cliente where email=?1", nativeQuery = true)
+    public Optional<Cliente> findByEmail(String email);
   
 }

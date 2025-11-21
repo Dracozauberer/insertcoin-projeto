@@ -9,6 +9,9 @@ import { DetalheProduto } from './detalhe-produto/detalhe-produto';
 import { Carrinho } from './carrinho/carrinho';
 import { Checkout } from './checkout/checkout';
 import { PedidoConfirmado } from './pedido-confirmado/pedido-confirmado';
+import { AuthGuard } from './auth-guard';
+import { LoginGuard } from './login-guard';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -18,10 +21,11 @@ export const routes: Routes = [
   { path: 'sobre', component: Sobre },
   { path: 'cadastro', component: Cadastro },
   { path: 'produto/:codigo', component: DetalheProduto },
-  { path: 'login', component: Login },
-  { path: 'carrinho', component: Carrinho },
-  { path: 'checkout', component: Checkout },         
-  { path: 'pedido-confirmado', component: PedidoConfirmado }
+  { path: 'carrinho', component: Carrinho }, 
+  { path: 'checkout', component: Checkout, canActivate: [AuthGuard]  },
+  { path: 'pedido-confirmado', component: PedidoConfirmado, canActivate: [AuthGuard]},
+  { path: 'login', component: Login, canActivate: [LoginGuard] }
+
 
 ];
 

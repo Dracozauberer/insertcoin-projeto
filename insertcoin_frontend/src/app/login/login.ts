@@ -4,6 +4,7 @@ import { ClienteService } from '../service/cliente';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,18 +20,20 @@ export class Login {
   
   constructor(
     private service: ClienteService,
+    private authService: AuthService, 
     private router: Router
   ){}
   
   fazerLogin(){
      this.service.fazerLogin(this.obj).subscribe({
         next:(data)=>{
-          if(data.codigo > 0){
+          if(data && data.codigo > 0){
             
-            localStorage.setItem('usuario', JSON.stringify(data));
-            this.mensagem = "Login efetuado com sucesso!";
-            setTimeout(() => {
-              this.router.navigate(['/vitrine']); 
+          this.authService.login(data);
+          alert(`Bem-vindo, ${data.nome}!`);
+
+          setTimeout(() => {
+              this.router.navigate(['/home']); 
             }, 1000);
           } else {
             this.mensagem = "Email ou senha incorretos!";

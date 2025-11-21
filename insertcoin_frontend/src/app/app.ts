@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet, Router} from '@angular/router';
 import { Home } from "./home/home";
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { ProdutoService } from './service/produto';
 import { Produto } from './model/produto'; 
 import { CarrinhoService } from './service/carrinho.service';
+import { AuthService } from './service/auth.service';
+import { Cliente } from './model/cliente';
 
 
 @Component({
@@ -18,7 +20,7 @@ import { CarrinhoService } from './service/carrinho.service';
 export class App {
 
   title = 'frontend';
-  //protected readonly title = signal('InsertCoin');
+  usuarioLogado: Cliente | null = null;
   termoBusca: string = "";
   produtosBusca: Produto[] = [];
   mostrarResultados: boolean = false;
@@ -29,11 +31,26 @@ export class App {
 constructor(
     private produtoService: ProdutoService,
     private router: Router,
-    private carrinhoService: CarrinhoService
+    private carrinhoService: CarrinhoService,
+    private authService: AuthService
+
   ) {
     this.carrinhoService.itens$.subscribe(itens => {
       this.quantidadeCarrinho = this.carrinhoService.getQuantidadeTotal();
     });
+  }
+  ngOnInit(): void {
+    
+    this.authService.usuarioLogado$.subscribe(usuario => {
+      this.usuarioLogado = usuario;
+      console.log('Usuário logado:', usuario?.nome || 'Nenhum');
+    });
+  }  
+  fazerLogout() {
+    if (confirm('Deseja realmente sair?')) {
+      this.authService.logout();
+      this.router.navigate(['/home']);
+    }
   }
   
   fazerBusca() {
