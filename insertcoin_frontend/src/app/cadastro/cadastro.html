@@ -1,32 +1,65 @@
-<h1>Cadastro de cliente</h1>
-<div class="alert alert-info">{{mensagem}}</div>
+<div class="wrapper">
 
+   <h1>Cadastro de cliente</h1>
+   <div class="alert alert-info">{{mensagem}}</div>
 
-   <label class="form-label">Nome:</label>
-<input type="text" class="form-control" [(ngModel)]="obj.nome"><br>
+   <form action="cadastro-form">
+      <div>
+         <div>
+            <label class="form-label">Nome:</label>
+            <input type="text" class="form-control" [(ngModel)]="obj.nome"><br>
+         </div>
+      </div>
+      
+      <div class="grid-2">
+         <div>
+            <label class="form-label">Email:</label>
+            <input type="email" class="form-control" [(ngModel)]="obj.email"><br>
+         </div>
 
-<label class="form-label">Email:</label>
-<input type="email" class="form-control" [(ngModel)]="obj.email"><br>
+         <div>
+            <label class="form-label">Senha:</label>
+            <input type="password" class="form-control" [(ngModel)]="obj.senha"><br>
+         </div>
+      </div>
 
-<label class="form-label">Senha:</label>
-<input type="password" class="form-control" [(ngModel)]="obj.senha"><br>
+      <div class="grid-2">
+         <div>
+            <label class="form-label">Documento:</label>
+            <input type="text" class="form-control" [(ngModel)]="obj.documento"><br>
+         </div>
 
-<label class="form-label">Documento:</label>
-<input type="text" class="form-control" [(ngModel)]="obj.documento"><br>
+         <div>
+            <label class="form-label">Telefone:</label>
+            <input type="tel" class="form-control" [(ngModel)]="obj.telefone"><br>
+         </div>
+      </div>
+      <div class="grid-2">
+         <div>
+            <label class="form-label">Logradouro:</label>
+            <input type="text" class="form-control" [(ngModel)]="obj.logradouro"><br>
+         </div>
 
-<label class="form-label">Telefone:</label>
-<input type="tel" class="form-control" [(ngModel)]="obj.telefone"><br>
+         <div>
+            <label class="form-label">Cidade:</label>
+            <input type="text" class="form-control" [(ngModel)]="obj.cidade"><br>
+         </div>
+      </div>
 
-<label class="form-label">Logradouro:</label>
-<input type="text" class="form-control" [(ngModel)]="obj.logradouro"><br>
+      <div class="grid-2">
+         <div>
+            <label class="form-label">CEP:</label>
+            <input type="text" class="form-control" [(ngModel)]="obj.cep"><br>
+         </div>
 
-<label class="form-label">Cidade:</label>
-<input type="text" class="form-control" [(ngModel)]="obj.cidade"><br>
-
-<label class="form-label">CEP:</label>
-<input type="text" class="form-control" [(ngModel)]="obj.cep"><br>
-
-<label class="form-label">Complemento:</label>
-<input type="text" class="form-control" [(ngModel)]="obj.complemento"><br>
-
-<button type="button" (click)="gravar()">Gravar</button> 
+         <div>
+            <label class="form-label">Complemento:</label>
+            <input type="text" class="form-control" [(ngModel)]="obj.complemento"><br>
+         </div>
+      </div>
+      
+      <div class="button-enviar">
+         <button class="btn btn-success" type="button" (click)="gravar()">Enviar</button>
+      </div>
+   </form>
+</div>

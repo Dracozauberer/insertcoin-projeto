@@ -1,129 +1,106 @@
-<title>Cadastro de Loja Virtual</title>
 <div class="wrapper">
-<main>
+    <main>
 
-<h1 class="titulo">Fale Conosco</h1>
-Envie a sua mensagem em breve entraremos em contato.<br><br>
-<b>{{alerta}}</b>
-<br><br>
-<form id="contactForm" novalidate>
-    <div>
-        <label for="nome">Nome completo *</label>
-        <input id="nome" name="nome" type="text" required maxlength="80" placeholder="Seu nome completo">
-    </div>
+        <h1 class="titulo">Fale Conosco</h1>
+        <p>Envie a sua mensagem em breve entraremos em contato.</p><br><br>
+        <b>{{alerta}}</b>
+        <br><br>
+        <form id="contactForm" novalidate>
+            <div>
+                <label for="nome">Nome completo *</label>
+                <input id="nome" name="nome" type="text" [(ngModel)]="nome" required maxlength="80" placeholder="Seu nome completo">
+            </div>
 
-    <div class="grid-2">
+            <div class="grid-2">
+                <div>
+                    <label for="telefone">Telefone</label>
+                    <input id="telefone" name="telefone" type="tel" [(ngModel)]="telefone" placeholder="(11) 91234-5678" pattern="\(\d{2}\)\s?\d{4,5}-\d{4}">
+                    <div class="help">Opcional — formato: (11) 91234-5678</div>
+                </div>
+                <div>
+                    <label for="email">E‑mail *</label>
+                    <input id="email" name="email" type="email" [(ngModel)]="email" required placeholder="contato@exemplo.com">
+                </div>
+                <div>
+                    <label for="assunto">Assunto *</label>
+                    <select id="assunto" name="assunto" [(ngModel)]="assunto" required>
+                        <option value="">Selecione...</option>
+                        <option>Pedido / Entrega</option>
+                        <option>Devolução / Troca</option>
+                        <option>Suporte técnico</option>
+                        <option>Parceria</option>
+                        <option>Outros</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="pedido">Número do pedido (opcional)</label>
+                    <input id="pedido" name="pedido" type="text" [(ngModel)]="numeroPedido" placeholder="Ex: 2025-000123">
+                </div>
+            </div>
+
+
+            <div>
+                <label for="mensagem">Mensagem *</label>
+                <textarea id="mensagem" name="mensagem" [(ngModel)]="mensagem" required maxlength="1200" placeholder="Conte-nos em detalhes (até 1200 caracteres)"></textarea>
+                <div class="help" id="charCount">0 / 1200</div>
+            </div>
+
+            <div style="display:flex;gap:12px;align-items:center">
+                <label style="margin:0"><input id="consent" name="consent" type="checkbox" required> Autorizo o uso dos dados informados para contato relacionado a este atendimento.</label>
+            </div>
+            <div>
+                <div style="display:flex;align-items:end;justify-content:flex-end">
+                    <div class="meta">Campos com * são obrigatórios</div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="btn" (click)="enviarEmail()" class="btn btn-success">Enviar Mensagem</button>
+                <button type="submit" class="primary">Enviar mensagem</button>
+                <button type="reset" class="primary">Limpar</button>
+            </div>
+        </form>
+    </main>
+
+<div class="card" aria-labelledby="contato-info">
+    <div class="contact-card">
         <div>
-            <label for="telefone">Telefone</label>
-            <input id="telefone" name="telefone" type="tel" placeholder="(11) 91234-5678" pattern="\(\d{2}\)\s?\d{4,5}-\d{4}">
-            <div class="help">Opcional — formato: (11) 91234-5678</div>
+            <h3 id="contato-info" style="margin:0 0 6px 0">Outras formas de contato</h3>
+            <p class="help">Atendimento de segunda a sexta, das 9h às 18h (exceto feriados).</p>
         </div>
+        <div class="info-row">
+            <div class="icon">☎</div>
+            <div>
+                <div style="font-weight:700">(11) 4000-1234</div>
+                <div class="help">Central de atendimento</div>
+            </div>
+        </div>
+        <div class="info-row">
+            <div class="icon">✉</div>
+            <div>
+                <div style="font-weight:700">suporte@sualoja.com</div>
+                <div class="help">Respostas em até 24h úteis</div>
+            </div>
+        </div>
+
         <div>
-            <label for="email">E‑mail *</label>
-            <input id="email" name="email" type="email" required placeholder="contato@exemplo.com">
+            <strong>Redes sociais</strong>
+            <div class="socials" style="margin-top:8px">
+                <a href="#" aria-label="Instagram">Instagram</a>
+                <a href="#" aria-label="Facebook">Facebook</a>
+                <a href="#" aria-label="WhatsApp">WhatsApp</a>
+            </div>
         </div>
+
         <div>
-            <label for="assunto">Assunto *</label>
-            <select id="assunto" name="assunto" required>
-            <option value="">Selecione...</option>
-            <option>Pedido / Entrega</option>
-            <option>Devolução / Troca</option>
-            <option>Suporte técnico</option>
-            <option>Parceria</option>
-            <option>Outros</option>
-            </select>
-        </div>
-        
-        <div>
-            <label for="pedido">Número do pedido (opcional)</label>
-            <input id="pedido" name="pedido" type="text" placeholder="Ex: 2025-000123">
+            <strong>Localização</strong>
+            <div class="help">Rua Exemplo, 123 — Centro, São Paulo — SP</div>
+            <!-- To embed a real map, replace the iframe src with Google Maps / OpenStreetMap embed -->
+            <div style="margin-top:8px;border-radius:8px;overflow:hidden;border:1px solid #eef2ff">
+                <div style="padding:12px;text-align:center;color:var(--muted)">Mapa (embed aqui)</div>
+            </div>
         </div>
     </div>
-
-
-    <div>
-        <label for="mensagem">Mensagem *</label>
-        <textarea id="mensagem" name="mensagem" required maxlength="1200" placeholder="Conte-nos em detalhes (até 1200 caracteres)"></textarea>
-        <div class="help" id="charCount">0 / 1200</div>
-    </div>
-
-    <div class="grid-2">
-        <div>
-            <label for="arquivo">Anexo (jpg, png, pdf — máx 5MB)</label>
-            <input id="arquivo" name="arquivo" type="file" accept="image/*,application/pdf">
-            <div class="help">Envie imagens do problema ou comprovantes.</div>
-        </div>
-        <div>
-            <label for="contato_pref">Preferência de contato</label>
-            <select id="contato_pref" name="contato_pref">
-                <option>Qualquer</option>
-                <option>E‑mail</option>
-                <option>Telefone</option>
-                <option>WhatsApp</option>
-            </select>
-        </div>
-    </div>
-
-    <div style="display:flex;gap:12px;align-items:center">
-        <label style="margin:0"><input id="consent" name="consent" type="checkbox" required> Autorizo o uso dos dados informados para contato relacionado a este atendimento.</label>
-    </div>
-    <div>
-        <div style="display:flex;align-items:end;justify-content:flex-end">
-            <div class="meta">Campos com * são obrigatórios</div>
-        </div>
-    </div>
-
-    <div class="actions">
-        <button type="submit" class="primary">Enviar mensagem</button>
-        <button type="reset" class="ghost">Limpar</button>
-    </div>
-    <div>
-        <label></label><button id="btn" (click)="enviarEmail()"
-        class="btn btn-success">Enviar</button>
-    </div>
-</form>
-
-</main>
-</div>
-<aside class="card" aria-labelledby="contato-info">
-<div class="contact-card">
-<div>
-<h3 id="contato-info" style="margin:0 0 6px 0">Outras formas de contato</h3>
-<p class="help">Atendimento de segunda a sexta, das 9h às 18h (exceto feriados).</p>
-</div>
-<div class="info-row">
-<div class="icon">☎</div>
-<div>
-<div style="font-weight:700">(11) 4000-1234</div>
-<div class="help">Central de atendimento</div>
-</div>
-</div>
-
-
-<div class="info-row">
-<div class="icon">✉</div>
-<div>
-<div style="font-weight:700">suporte@sualoja.com</div>
-<div class="help">Respostas em até 24h úteis</div>
-</div>
-</div>
-
-
-<div>
-<strong>Redes sociais</strong>
-<div class="socials" style="margin-top:8px">
-<a href="#" aria-label="Instagram">Instagram</a>
-<a href="#" aria-label="Facebook">Facebook</a>
-<a href="#" aria-label="WhatsApp">WhatsApp</a>
-</div>
-</div>
-
-
-<div>
-<strong>Localização</strong>
-<div class="help">Rua Exemplo, 123 — Centro, São Paulo — SP</div>
-<!-- To embed a real map, replace the iframe src with Google Maps / OpenStreetMap embed -->
-<div style="margin-top:8px;border-radius:8px;overflow:hidden;border:1px solid #eef2ff">
-<div style="padding:12px;text-align:center;color:var(--muted)">Mapa (embed aqui)</div>
 </div>
 </div>
