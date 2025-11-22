@@ -40,7 +40,7 @@ label{
     margin-bottom:6px;
 }
 
-input[type="text"], input[type="email"], input[type="senha"], input[type="tel"], select, textarea{
+input[type="text"], input[type="email"], input[type="password"], input[type="tel"], select, textarea{
     width:100%; 
     padding:10px 12px; 
     border-radius:10px; 

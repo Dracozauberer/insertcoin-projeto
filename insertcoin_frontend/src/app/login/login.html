@@ -12,7 +12,7 @@
 
       <div>
         <label for="senha">Senha</label>
-        <input type="senha" id="senha" name="senha" [(ngModel)]="obj.senha" placeholder="••••••••" required autocomplete="current-password"/>
+        <input type="password" id="senha" name="senha" [(ngModel)]="obj.senha" placeholder="••••••••" required autocomplete="current-password"/>
       </div>
 
       <div *ngIf="mensagem" class="mensagem" [ngClass]="{'sucesso': mensagem.includes('sucesso'), 'erro': !mensagem.includes('sucesso')}">

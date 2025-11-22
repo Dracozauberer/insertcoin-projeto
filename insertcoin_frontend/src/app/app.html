@@ -72,7 +72,15 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="white" stroke-opacity="0.6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <input type="search" placeholder="Buscar jogos, consoles..." aria-label="Buscar" [(ngModel)]="termoBusca" (keyup.enter)="fazerBusca()">
       </div>
-      <button class="btn" >Carrinho (0)</button>
+      <div class="resultados-busca" *ngIf="mostrarResultados && produtosBusca.length">
+        <ul>
+          <li *ngFor="let produto of produtosBusca" (click)="verProduto(produto.codigo)">{{ produto.nome }}</li>
+        </ul>
+      </div>
+      <div *ngIf="mostrarResultados && !produtosBusca.length">
+      <span>Nenhum produto encontrado</span>
+      </div>
+      <button class="btn" (click)="irParaCarrinho()">Carrinho ({{ quantidadeCarrinho }})</button>
       <div class="user-menu" *ngIf="usuarioLogado">
         <span>Olá, {{ usuarioLogado.nome }}!</span>
         <button (click)="fazerLogout()" class="btn-logout">Sair</button>
