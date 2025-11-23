@@ -1,11 +1,12 @@
 package com.insertcoin.loja;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
-
+import java.util.Date;
 
 @Entity
 public class Cliente {
@@ -33,6 +34,12 @@ public class Cliente {
     private String cep;
     private String complemento;
     private int ativo;
+
+    @Column(nullable = true)
+    private String tokenRecuperacao;
+    
+    @Column(nullable = true)    
+    private Date tokenExpiracao;
 
     public int getCodigo() {
         return codigo;
@@ -99,6 +106,18 @@ public class Cliente {
     }
     public void setAtivo(int ativo) {
         this.ativo = ativo;
+    }
+    public String getTokenRecuperacao() {
+        return tokenRecuperacao;
+    }
+    public void setTokenRecuperacao(String tokenRecuperacao) {
+        this.tokenRecuperacao = tokenRecuperacao;
+    }
+    public Date getTokenExpiracao() {
+        return tokenExpiracao;
+    }
+    public void setTokenExpiracao(Date tokenExpiracao) {
+        this.tokenExpiracao = tokenExpiracao;
     }
 
   

@@ -3,6 +3,8 @@ package com.insertcoin.loja;
 import java.util.List;
 import java.util.Optional;
 import java.util.Map;
+import java.util.UUID;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
@@ -80,47 +83,77 @@ public class ClienteController {
             return new Cliente();
        }
     }
-    @GetMapping("/api/cliente/esqueci-senha/{email}")
-    public String enviarEmailRedefinicaoSenha(@PathVariable("email") String email) {
+    @PostMapping("/api/cliente/solicitar-recuperacao")
+    @ResponseBody
+    public String solicitarRecuperacao(@RequestBody Map<String, String> dados) {
+    String email = dados.get("email");
+    
+    System.out.println("Email recebido: " + email); 
     
     Optional<Cliente> clienteOpt = bd.findByEmail(email);
     
     if(clienteOpt.isPresent()) {
         Cliente cliente = clienteOpt.get();
         
-        String token = util.md5(cliente.getEmail() + System.currentTimeMillis());
+        String token = UUID.randomUUID().toString();
         
-        
-        String emailHtml = "<b>Redefinição de Senha</b><br><br>" +
-                    "Olá, " + cliente.getNome() + "!<br><br>" +
-                    "Você solicitou a redefinição de senha. Clique no link abaixo:<br><br>" +
-                    "<a href='http://localhost:4200/redefinir-senha/" + token + "'>Redefinir Senha</a><br><br>" +
-                    "Se você não solicitou, ignore este email.";
-        
-        String retorno = util.enviaEmailHTML(cliente.getEmail(), "Redefinição de Senha", emailHtml);
-        
-        System.out.println("Email de redefinição enviado: " + retorno);
-        return retorno;
-    } else {
-        return "Email não encontrado!";
-    }
-}
-    @PostMapping("/api/cliente/redefinir-senha")
-    public String redefinirSenha(@RequestBody Map<String, String> dados) {
-        String token = dados.get("token");
-        String novaSenha = dados.get("novaSenha");
-        String email = dados.get("email");
-    
-    Optional<Cliente> clienteOpt = bd.findByEmail(email);
-    
-    if(clienteOpt.isPresent()) {
-        Cliente cliente = clienteOpt.get();
-        cliente.setSenha(util.md5(novaSenha));
+        cliente.setTokenRecuperacao(token);
+        cliente.setTokenExpiracao(new Date(System.currentTimeMillis() + 3600000)); 
         bd.save(cliente);
+        
+        System.out.println("Token gerado: " + token); 
+        
+        
+        new Thread(() -> {
+            String emailHtml = "<b>Recuperação de Senha</b><br><br>" +
+                        "Olá, " + cliente.getNome() + "!<br><br>" +
+                        "Você solicitou a recuperação de senha. Use o código abaixo:<br><br>" +
+                        "<h2>" + token + "</h2><br><br>" +
+                        "Este código expira em 1 hora.<br><br>" +
+                        "Se você não solicitou, ignore este email.";
+            
+            util.enviaEmailHTML(cliente.getEmail(), "Recuperação de Senha", emailHtml);
+        }).start();
+
+        
+        return "Email de recuperação enviado!";
+    }
+    
+    return "Email não encontrado!";
+}
+
+    @PostMapping("/api/cliente/redefinir-senha")
+    @ResponseBody
+    public String redefinirSenha(@RequestBody Map<String, String> dados) {
+    String token = dados.get("token");
+    String novaSenha = dados.get("novaSenha");
+    
+    System.out.println("Token recebido: " + token); 
+    
+    
+    Optional<Cliente> clienteOpt = bd.findByTokenRecuperacao(token);
+    
+    if(clienteOpt.isPresent()) {
+        Cliente cliente = clienteOpt.get();
+        
+        
+        if(cliente.getTokenExpiracao() != null && 
+           cliente.getTokenExpiracao().before(new Date())) {
+            return "Token expirado! Solicite um novo.";
+        }
+        
+        
+        cliente.setSenha(util.md5(novaSenha));
+        cliente.setTokenRecuperacao(null);
+        cliente.setTokenExpiracao(null);
+        bd.save(cliente);
+        
+        System.out.println("Senha redefinida para: " + cliente.getEmail()); 
+        
         return "Senha redefinida com sucesso!";
     }
     
-    return "Erro ao redefinir senha!";
+    return "Token inválido!";
 }
     @GetMapping("/api/cliente/inativos")
     public List<Cliente> listarInativos(){

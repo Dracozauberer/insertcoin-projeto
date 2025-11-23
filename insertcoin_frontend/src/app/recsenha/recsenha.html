@@ -1,1 +1,27 @@
-<p>recsenha works!</p>
+<!-- Etapa 1: Solicitar recuperação -->
+<div *ngIf="etapa === 1">
+  <h2>Recuperar Senha</h2>
+  <form (ngSubmit)="solicitarRecuperacao()">
+    <input type="email" [(ngModel)]="email" name="email" 
+           placeholder="Seu e-mail" required>
+    <button type="submit">Enviar código</button>
+  </form>
+</div>
+
+<!-- Etapa 2: Redefinir senha -->
+<div *ngIf="etapa === 2">
+  <h2>Digite o código recebido</h2>
+  <form (ngSubmit)="redefinirSenha()">
+    <input type="text" [(ngModel)]="token" name="token" 
+           placeholder="Código de verificação" required>
+    <input type="password" [(ngModel)]="novaSenha" name="novaSenha" 
+           placeholder="Nova senha" required>
+    <button type="submit">Redefinir senha</button>
+  </form>
+  <button (click)="etapa = 1">Voltar</button>
+</div>
+
+<p [class.sucesso]="mensagem.includes('sucesso')" 
+   [class.erro]="mensagem.includes('Erro')">
+  {{mensagem}}
+</p>
