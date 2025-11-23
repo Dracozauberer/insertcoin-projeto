@@ -10,7 +10,7 @@
 
 <!-- Etapa 2: Redefinir senha -->
 <div *ngIf="etapa === 2">
-  <h2>Digite o código recebido por e-mail</h2>
+  <h2>Digite o código recebido por e-mail:</h2>
   <form (ngSubmit)="redefinirSenha()">
     <input type="text" [(ngModel)]="token" name="token" 
            placeholder="Código de verificação" required>

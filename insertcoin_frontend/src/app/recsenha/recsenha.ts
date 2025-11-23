@@ -25,7 +25,7 @@ export class Recsenha {
 
     this.authService.solicitarRecuperacao(this.email).subscribe(
       (response) => {
-        this.mensagem = 'Email enviado! Verifique sua caixa de entrada.';
+        this.mensagem = 'E-mail enviado! Verifique sua caixa de entrada.';
         this.etapa = 2;
       },
       (error) => {
