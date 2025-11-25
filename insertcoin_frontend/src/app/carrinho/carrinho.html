@@ -2,9 +2,9 @@
   <h1>Meu Carrinho</h1>
   
   <!-- CARRINHO VAZIO -->
-  <div *ngIf="itens.length === 0" class="carrinho-vazio">
+  <div *ngIf="itens.length === 0" class="card">
     <p>Seu carrinho está vazio!</p>
-    <button (click)="continuarComprando()" class="btn-continuar">
+    <button (click)="continuarComprando()" class="btn">
       Ver Produtos
     </button>
   </div>
@@ -78,17 +78,19 @@
         <span><strong>R$ {{ valorTotal | number:'1.2-2' }}</strong></span>
       </div>
       
-      <button (click)="finalizarCompra()" class="btn-finalizar">
-        Finalizar Compra
-      </button>
-      
-      <button (click)="continuarComprando()" class="btn-continuar">
-        Continuar Comprando
-      </button>
-      
-      <button (click)="limparCarrinho()" class="btn-limpar">
-        Limpar Carrinho
-      </button>
+      <div class="button">
+        <button (click)="finalizarCompra()" class="btn">
+          Finalizar Compra
+        </button>
+        
+        <button (click)="continuarComprando()" class="btn">
+          Continuar Comprando
+        </button>
+        
+        <button (click)="limparCarrinho()" class="btn primary">
+          Limpar Carrinho
+        </button>
+      </div>
     </div>
     
   </div>

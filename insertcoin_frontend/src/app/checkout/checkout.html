@@ -3,8 +3,7 @@
   
   <div class="checkout-content">
     
-    <!-- DADOS DO CLIENTE -->
-    <div class="secao">
+    <div class="card">
       <h2>Dados do Cliente</h2>
       <div class="cliente-info">
         <p><strong>Nome:</strong> {{ usuario?.nome }}</p>
@@ -12,8 +11,7 @@
         <p><strong>Telefone:</strong> {{ usuario?.telefone }}</p>
         
         <div *ngIf="usuario?.logradouro">
-          <p><strong>Endereço:</strong></p>
-          <p>{{ usuario.logradouro }}</p>
+          <p><strong>Endereço:</strong> {{ usuario.logradouro }}</p>
           <p>{{ usuario.cidade }} - CEP: {{ usuario.cep }}</p>
           <p *ngIf="usuario.complemento">{{ usuario.complemento }}</p>
         </div>
@@ -21,10 +19,10 @@
     </div>
     
     
-    <div class="secao">
+    <div class="card">
       <h2>📦 Itens do Pedido</h2>
       <div class="itens-resumo">
-        <div class="item-linha" *ngFor="let item of itens">
+        <div class="card" *ngFor="let item of itens">
           <div class="item-info-resumo">
             <img 
               [src]="item.produto.codigo + '.jpg'" 
@@ -45,7 +43,7 @@
       </div>
     </div>
     
-    <div class="secao resumo-total">
+    <div class="card">
       <h2>💰 Resumo do Pedido</h2>
       
       <div class="resumo-linha">
@@ -65,7 +63,7 @@
     </div>
     
     
-    <div class="secao">
+    <div class="card">
       <h2>💳 Forma de Pagamento</h2>
       <p class="info-pagamento">
         O pagamento será processado na entrega.<br>
@@ -79,20 +77,19 @@
     </div>
     
     
-    <div class="acoes">
-      <button 
-        (click)="voltarParaCarrinho()" 
-        class="btn-voltar"
-        [disabled]="processando">
-        ← Voltar ao Carrinho
-      </button>
-      
+    <div class="acoes">      
       <button 
         (click)="finalizarPedido()" 
-        class="btn-finalizar"
+        class="btn"
         [disabled]="processando">
         <span *ngIf="!processando">✅ Confirmar Pedido</span>
         <span *ngIf="processando">⏳ Processando...</span>
+      </button>
+      <button 
+        (click)="voltarParaCarrinho()" 
+        class="btn primary"
+        [disabled]="processando">
+        ← Voltar ao Carrinho
       </button>
     </div>
     

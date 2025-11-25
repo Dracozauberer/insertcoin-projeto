@@ -17,11 +17,6 @@ body{margin:0; background:linear-gradient(180deg,#f8fbff 0%,var(--bg) 100%); col
 
 .card{background:var(--card); border-radius:14px; padding:20px; box-shadow:0 6px 24px rgba(15,23,42,0.06)}
 
-h1{
-    margin:0 0 8px 0; 
-    font-size:20px;
-}
-
 p.lead{
     margin:0 0 16px 0; 
     color:var(--muted);

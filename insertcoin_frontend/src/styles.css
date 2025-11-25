@@ -16,7 +16,7 @@
 
 html,body{
     height:100%;
-    margin:0;
+    margin:auto;
     font-family:Inter,system-ui,Arial;
     background: linear-gradient(135deg, var(--accent2) 0%, var(--bg) 50%, #000 100%);
     color:#f5f5f5;
@@ -74,6 +74,17 @@ nav a:hover{
     font-size:15px;
 }
 
+.primary{
+    background:var(--accent);
+    color:white;
+    margin: 10px;
+    padding:10px 14px;
+    border-radius:10px;
+    font-weight:600;
+    cursor:pointer;
+    border:1px solid #e6e9f2;
+}
+
 input, select, textarea {
     background-color: var(--muted);
     color: black;
@@ -123,6 +134,9 @@ input, select, textarea {
     cursor:pointer
 }
 
+a{
+    text-decoration: none;
+}
 
 .hero{display:grid;
   grid-template-columns:1fr 420px;
@@ -157,7 +171,12 @@ footer{max-width:1200px;margin:36px auto;padding:18px 28px;color:var(--muted);bo
 
 
 /* Responsividade */
-@media (max-width: 800px) {
+@media (max-width: 940px) {
+  main{
+    margin: 0;
+    max-width: 86vw;
+  }
+
   header {
     flex-direction: column;
     text-align: center;
@@ -176,8 +195,11 @@ footer{max-width:1200px;margin:36px auto;padding:18px 28px;color:var(--muted);bo
     padding: 0.8rem 1.5rem;
   }
 
-  .hero-card{
-
+  .hero{
+    display: grid;
+    grid-template-columns:1fr;
+    justify-content: center;
+    padding: 0;
   }
 
   .produto {
@@ -190,12 +212,26 @@ footer{max-width:1200px;margin:36px auto;padding:18px 28px;color:var(--muted);bo
 }
 
 @media (max-width: 480px) {
+  main{
+    margin: 0;
+    max-width: 80vw;
+  }
+
   header h1 {
     font-size: 0.9rem;
+  }
+  .actions{
+    display:grid;
   }
 
   .actions h2 {
     font-size: 1rem;
+  }
+
+  .hero{
+    padding: 0;
+    display: grid;
+    grid-template-columns:1fr;
   }
 
   .produto {

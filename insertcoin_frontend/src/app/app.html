@@ -6,51 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insert Coin — Jogos & Consoles Retrô</title>
     <link rel="shortcut icon" href="" type="image/x-icon">
-    <style>
-        @font-face {
-          font-family: 'Pixel';
-          src:url('/assets/fonts/Pixel-Digivolve.woff') format('woff');
-          font-weight: normal;
-          font-style: normal;
-          font-display: swap;
-        }
-
-        :root {
-          --pac-size: 40px;
-          --pellet-size: 10px;
-        }
-
-        .bolinha {
-        width: var(--pellet-size);
-        height: var(--pellet-size);
-        border-radius: 50%;
-        background: white;
-        position: absolute;
-        pointer-events: none;
-        }
-
-        #pacman {
-        width: var(--pac-size);
-        height: var(--pac-size);
-        position: absolute;
-        transform-origin: center center;
-        user-select: none;
-        cursor: pointer;
-        }
-
-        #pacman svg {
-        display: block;
-        width: 100%;
-        height: 100%;
-        }
-    </style>
+    
 </head>
 <body>    
-  <div id="pacman" title="Clique para inverter direção">
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path id="pacPath" fill="yellow" stroke="none"></path>
-    </svg>
-  </div>
+
   <header>
     <div class="brand">
       <img class="card-img-top" src="coin_transp.png" width="56px" height="56px" alt="logo">
@@ -83,7 +42,7 @@
       <button class="btn" (click)="irParaCarrinho()">Carrinho ({{ quantidadeCarrinho }})</button>
       <div class="user-menu" *ngIf="usuarioLogado">
         <span>Olá, {{ usuarioLogado.nome }}!</span>
-        <button (click)="fazerLogout()" class="btn-logout">Sair</button>
+        <button (click)="fazerLogout()" class="btn-logout primary">Sair</button>
       </div>
       <a class="btn" href="./login" *ngIf="!usuarioLogado">Login</a>
     </div>
@@ -102,157 +61,6 @@
       </div>
     </footer>
   </main>
-   <script>
-    /* ---------- utilitário SVG ---------- */
-    function polarToCartesian(cx, cy, r, angleDeg) {
-      const a = (angleDeg) * Math.PI / 180;
-      return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
-    }
-
-    function describePac(cx, cy, r, mouthAngleDeg) {
-      const start = mouthAngleDeg / 2;
-      const end = 360 - mouthAngleDeg / 2;
-      const p1 = polarToCartesian(cx, cy, r, start);
-      const p2 = polarToCartesian(cx, cy, r, end);
-      const delta = (end - start + 360) % 360;
-      const largeArcFlag = delta > 180 ? 1 : 0;
-      return `M ${cx} ${cy} L ${p1.x.toFixed(3)} ${p1.y.toFixed(3)} A ${r} ${r} 0 ${largeArcFlag} 1 ${p2.x.toFixed(3)} ${p2.y.toFixed(3)} Z`;
-    }
-
-    /* ---------- animação boca ---------- */
-    const pac = document.getElementById('pacman');
-    const pacPath = document.getElementById('pacPath');
-
-    const PAC_SIZE = 40;
-    const CX = PAC_SIZE/2;
-    const CY = PAC_SIZE/2;
-    const R = PAC_SIZE/2 - 1;
-
-    const MOUTH_MIN = 8;
-    const MOUTH_MAX = 65;
-    const CHOMP_FREQ = 3.5;
-
-    let startTime = null;
-    function animateMouth(ts) {
-      if (!startTime) startTime = ts;
-      const elapsed = (ts - startTime) / 1000;
-      const t = Math.sin(elapsed * Math.PI * 2 * CHOMP_FREQ);
-      const mouth = MOUTH_MIN + (MOUTH_MAX - MOUTH_MIN) * ((t + 1) / 2);
-      pacPath.setAttribute('d', describePac(CX, CY, R, mouth));
-      requestAnimationFrame(animateMouth);
-    }
-    requestAnimationFrame(animateMouth);
-
-    /* ---------- movimento e bolinhas ---------- */
-    let direction = 1;
-    let pos = { x: 0, y: 0 };
-    let step = 2;
-    let edge = "top";
-
-    const OFFSET = 20; // afastamento das bolinhas da borda
-
-    function criarBolinhas() {
-      const espacamento = 50;
-      const largura = window.innerWidth;
-      const altura = window.innerHeight;
-
-      // Topo
-      for (let x = OFFSET; x < largura - OFFSET; x += espacamento) {
-        criarBolinha(x, OFFSET);
-      }
-      // Direita
-      for (let y = OFFSET; y < altura - OFFSET; y += espacamento) {
-        criarBolinha(largura - OFFSET, y);
-      }
-      // Base
-      for (let x = OFFSET; x < largura - OFFSET; x += espacamento) {
-        criarBolinha(x, altura - OFFSET);
-      }
-      // Esquerda
-      for (let y = OFFSET; y < altura - OFFSET; y += espacamento) {
-        criarBolinha(OFFSET, y);
-      }
-    }
-
-    function criarBolinha(x, y) {
-      const bolinha = document.createElement("div");
-      bolinha.classList.add("bolinha");
-      bolinha.style.left = x + "px";
-      bolinha.style.top = y + "px";
-      document.body.appendChild(bolinha);
-    }
-
-    criarBolinhas();
-
-    function moverPacman() {
-      const largura = window.innerWidth;
-      const altura = window.innerHeight;
-
-      if (edge === "top") {
-        pos.x += step * direction;
-        if (pos.x >= largura - PAC_SIZE) { edge = "right"; pos.x = largura - PAC_SIZE; }
-        if (pos.x <= 0) { edge = "left"; pos.x = 0; }
-        setPacRotation(direction === 1 ? 0 : 180);
-      } else if (edge === "right") {
-        pos.y += step * direction;
-        if (pos.y >= altura - PAC_SIZE) { edge = "bottom"; pos.y = altura - PAC_SIZE; }
-        if (pos.y <= 0) { edge = "top"; pos.y = 0; }
-        setPacRotation(direction === 1 ? 90 : 270);
-      } else if (edge === "bottom") {
-        pos.x -= step * direction;
-        if (pos.x <= 0) { edge = "left"; pos.x = 0; }
-        if (pos.x >= largura - PAC_SIZE) { edge = "right"; pos.x = largura - PAC_SIZE; }
-        setPacRotation(direction === 1 ? 180 : 0);
-      } else if (edge === "left") {
-        pos.y -= step * direction;
-        if (pos.y <= 0) { edge = "top"; pos.y = 0; }
-        if (pos.y >= altura - PAC_SIZE) { edge = "bottom"; pos.y = altura - PAC_SIZE; }
-        setPacRotation(direction === 1 ? 270 : 90);
-      }
-
-      pac.style.left = pos.x + "px";
-      pac.style.top = pos.y + "px";
-
-      comerBolinhas();
-      requestAnimationFrame(moverPacman);
-    }
-
-    function setPacRotation(deg) {
-      pac.style.transform = `rotate(${deg}deg)`;
-    }
-
-    function comerBolinhas() {
-      const pacRect = pac.getBoundingClientRect();
-      const bolinhas = document.querySelectorAll(".bolinha");
-
-      bolinhas.forEach(bolinha => {
-        const bolRect = bolinha.getBoundingClientRect();
-        if (
-          pacRect.left < bolRect.right &&
-          pacRect.right > bolRect.left &&
-          pacRect.top < bolRect.bottom &&
-          pacRect.bottom > bolRect.top
-        ) {
-          const x = bolinha.style.left;
-          const y = bolinha.style.top;
-          bolinha.remove();
-          setTimeout(() => {
-            criarBolinha(parseInt(x), parseInt(y));
-          }, 10000);
-        }
-      });
-    }
-
-    pac.addEventListener("click", () => {
-      direction *= -1;
-    });
-
-    moverPacman();
-
-    window.addEventListener('resize', () => {
-      document.querySelectorAll('.bolinha').forEach(b => b.remove());
-      criarBolinhas();
-    });
-  </script>
+  
 </body>
 </html>

@@ -1,89 +1,89 @@
 <main class="detalhe-container">
-  
-  <!-- LOADING -->
-  <div *ngIf="carregando" class="loading">
-    <p>Carregando produto...</p>
-  </div>
-  
-  <!-- MENSAGEM DE ERRO -->
-  <div *ngIf="mensagem" class="alert alert-danger">
-    {{ mensagem }}
-    <button (click)="voltarParaVitrine()" class="btn btn-secondary">
-      Voltar para Vitrine
-    </button>
-  </div>
-  
-  <!-- DETALHES DO PRODUTO -->
-  <div *ngIf="!carregando && !mensagem" class="produto-detalhes">
+  <div class="card">
+    <!-- LOADING -->
+    <div *ngIf="carregando" class="loading">
+      <p>Carregando produto...</p>
+    </div>
     
-    <!-- Botão Voltar -->
-    <button (click)="voltarParaVitrine()" class="btn-voltar">
-      ← Voltar para Vitrine
-    </button>
+    <!-- MENSAGEM DE ERRO -->
+    <div *ngIf="mensagem" class="alert alert-danger">
+      {{ mensagem }}
+      <button (click)="voltarParaVitrine()" class="btn btn-secondary">
+        Voltar para Vitrine
+      </button>
+    </div>
     
-    <div class="produto-grid">
+    <!-- DETALHES DO PRODUTO -->
+    <div *ngIf="!carregando && !mensagem" class="produto-detalhes">
       
-      <!-- IMAGEM -->
-      <div class="produto-imagem">
-        <img [src]="produto.codigo + '.jpg'" 
-             [alt]="produto.nome"
-             style="width: 100%; max-width: 500px; border-radius: 12px;">
+      <!-- Botão Voltar -->
+      <button (click)="voltarParaVitrine()" class="btn-voltar">
+        ← Voltar para Vitrine
+      </button>
+      
+      <div class="produto-grid">
+        
+        <!-- IMAGEM -->
+        <div class="produto-imagem">
+          <img [src]="produto.codigo + '.jpg'" 
+              [alt]="produto.nome"
+              style="width: 100%; max-width: 500px; border-radius: 12px;">
 
-      </div>
-      
-      <!-- INFORMAÇÕES -->
-      <div class="produto-info">
-        <h1>{{ produto.nome }}</h1>
-        
-        <!-- PREÇO -->
-        <div class="preco-container">
-          <div *ngIf="produto.promo > 0 && produto.promo < produto.valor">
-            <span class="preco-antigo">R$ {{ produto.valor | number:'1.2-2' }}</span>
-            <span class="preco-atual">R$ {{ produto.promo | number:'1.2-2' }}</span>
-            <span class="desconto">
-              {{ calcularDesconto(produto.valor, produto.promo) }}% OFF
-            </span>
-          </div>
-          <div *ngIf="produto.promo === 0 || produto.promo >= produto.valor">
-            <span class="preco-atual">R$ {{ produto.valor | number:'1.2-2' }}</span>
-          </div>
         </div>
         
-        <!-- ESTOQUE -->
-        <div class="estoque">
-          <span *ngIf="produto.quantidade > 0" class="disponivel">
-            ✅ {{ produto.quantidade }} unidades disponíveis
-          </span>
-          <span *ngIf="produto.quantidade === 0" class="indisponivel">
-            ❌ Produto esgotado
-          </span>
-        </div>
-        
-        <!-- DESCRIÇÃO -->
-        <div class="descritivo">
-          <h3>Descrição</h3>
-          <p>{{ produto.descritivo || 'Sem descrição disponível.' }}</p>
-        </div>
-        
-        <!-- QUANTIDADE E COMPRAR -->
-        <div *ngIf="produto.quantidade > 0" class="comprar-container">
-          <div class="quantidade-selector">
-            <button (click)="diminuirQuantidade()" [disabled]="quantidade <= 1">-</button>
-            <input type="number" [(ngModel)]="quantidade" min="1" [max]="produto.quantidade">
-            <button (click)="aumentarQuantidade()" [disabled]="quantidade >= produto.quantidade">+</button>
+        <!-- INFORMAÇÕES -->
+        <div class="produto-info">
+          <h1>{{ produto.nome }}</h1>
+          
+          <!-- PREÇO -->
+          <div class="preco-container">
+            <div *ngIf="produto.promo > 0 && produto.promo < produto.valor">
+              <span class="preco-antigo">R$ {{ produto.valor | number:'1.2-2' }}</span>
+              <span class="preco-atual">R$ {{ produto.promo | number:'1.2-2' }}</span>
+              <span class="desconto">
+                {{ calcularDesconto(produto.valor, produto.promo) }}% OFF
+              </span>
+            </div>
+            <div *ngIf="produto.promo === 0 || produto.promo >= produto.valor">
+              <span class="preco-atual">R$ {{ produto.valor | number:'1.2-2' }}</span>
+            </div>
           </div>
           
-          <button (click)="adicionarAoCarrinho(produto)" class="btn-comprar">
-            🛒 Adicionar ao Carrinho
-          </button>
+          <!-- ESTOQUE -->
+          <div class="estoque">
+            <span *ngIf="produto.quantidade > 0" class="disponivel">
+              ✅ {{ produto.quantidade }} unidades disponíveis
+            </span>
+            <span *ngIf="produto.quantidade === 0" class="indisponivel">
+              ❌ Produto esgotado
+            </span>
+          </div>
+          
+          <!-- DESCRIÇÃO -->
+          <div class="descritivo">
+            <h3>Descrição</h3>
+            <p>{{ produto.descritivo || 'Sem descrição disponível.' }}</p>
+          </div>
+          
+          <!-- QUANTIDADE E COMPRAR -->
+          <div *ngIf="produto.quantidade > 0" class="comprar-container">
+            <div class="quantidade-selector">
+              <button (click)="diminuirQuantidade()" [disabled]="quantidade <= 1">-</button>
+              <input type="number" [(ngModel)]="quantidade" min="1" [max]="produto.quantidade">
+              <button (click)="aumentarQuantidade()" [disabled]="quantidade >= produto.quantidade">+</button>
+            </div>
+            
+            <button (click)="adicionarAoCarrinho(produto)" class="btn">
+              🛒 Adicionar ao Carrinho
+            </button>
+          </div>
+          
+          <div *ngIf="produto.quantidade === 0" class="aviso-esgotado">
+            Este produto está temporariamente esgotado.
+          </div>
+          
         </div>
-        
-        <div *ngIf="produto.quantidade === 0" class="aviso-esgotado">
-          Este produto está temporariamente esgotado.
-        </div>
-        
       </div>
     </div>
   </div>
-  
 </main>

@@ -1,30 +1,29 @@
 <main>
     <h1>Vitrine</h1>
     <div class="alert alert-warning" *ngIf="mensagem.length>0">{{mensagem}}</div>
-
-<div class="row">
-
-
-<div class="card" *ngFor="let obj of lista" class="col-3">
-  <img class="card-img-top" 
-     [src]="obj.codigo + '.jpg'" 
-     [alt]="obj.nome"
-     width="150px">
-  <div class="card-body">
-    <h4 class="card-title">{{obj.nome}}</h4>
-    <div class="card-text"> 
-        <div *ngIf="obj.promo>obj.valor">
-    R${{obj.valor}}
+  <div class="wrapper">
+    <div class="card" *ngFor="let obj of lista">
+      <img class="card-img-top" 
+        [src]="obj.codigo + '.jpg'" 
+        [alt]="obj.nome"
+        width="150px">
+      <div class="card-body">
+        <h4 class="card-title">{{obj.nome}}</h4>
+        <div class="card-text"> 
+          <div *ngIf="obj.promo>obj.valor">
+              R${{obj.valor}}
+          </div>
+          <div *ngIf="obj.promo<obj.valor">
+              <s>R${{obj.valor}}</s><br>
+              R${{obj.promo}}
+          </div>
+        </div>
+        <div>
+          <a id="btn-action" [routerLink]="['/produto', obj.codigo]" class="btn btn-primary">+ detalhes</a>
+          <button id="btn-action" (click)="adicionarAoCarrinho(obj)" class="btn btn-primary" *ngIf="obj.quantidade>0"> 🛒 Comprar </button>
+        </div>
+      </div>
     </div>
-    <div *ngIf="obj.promo<obj.valor">
-        <s>R${{obj.valor}}</s><br>
-        R${{obj.promo}}
-    </div></div>
-    <a [routerLink]="['/produto', obj.codigo]" class="btn btn-primary">+ detalhes</a>
-    <button (click)="adicionarAoCarrinho(obj)" class="btn btn-primary" *ngIf="obj.quantidade>0"> 🛒 Comprar </button>
-
   </div>
-</div>
-</div>
 </main>
 

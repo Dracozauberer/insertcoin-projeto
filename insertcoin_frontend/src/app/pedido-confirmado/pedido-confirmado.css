@@ -6,15 +6,11 @@
   padding: 40px 20px;
 }
 
-.sucesso-box {
-  background: white;
-  border: 2px solid #28a745;
-  border-radius: 16px;
+.card{
   padding: 60px 40px;
   text-align: center;
   max-width: 600px;
-  box-shadow: 0 8px 24px rgba(40, 167, 69, 0.15);
-}
+ }
 
 .icone-sucesso {
   font-size: 80px;
@@ -30,20 +26,20 @@
 
 h1 {
   font-size: 32px;
-  color: #28a745;
+  color: var(--accent1);
   margin-bottom: 20px;
 }
 
 .mensagem {
   font-size: 18px;
-  color: #555;
+  color: var(--accent3);
   margin-bottom: 15px;
   line-height: 1.6;
 }
 
 .info {
   font-size: 16px;
-  color: #666;
+  color: var(--accent3);
   margin-bottom: 30px;
 }
 
@@ -54,12 +50,9 @@ h1 {
   flex-wrap: wrap;
 }
 
-.btn-pedidos,
-.btn-continuar {
+.btn{
   padding: 15px 30px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s;

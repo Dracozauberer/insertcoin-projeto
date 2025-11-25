@@ -1,10 +1,12 @@
-<!-- Etapa 1: Solicitar recuperação -->
+<div class="wrapper"><!-- Etapa 1: Solicitar recuperação -->
 <div *ngIf="etapa === 1">
-  <h2>Recuperar Senha</h2>
+  <h1>Recuperar Senha</h1>
   <form (ngSubmit)="solicitarRecuperacao()">
     <input type="email" [(ngModel)]="email" name="email" 
            placeholder="Seu e-mail" required>
-    <button type="submit">Enviar código</button>
+    <div class="button"> 
+      <button class="btn" type="submit">Enviar código</button>
+    </div>
   </form>
 </div>
 
@@ -16,12 +18,17 @@
            placeholder="Código de verificação" required>
     <input type="password" [(ngModel)]="novaSenha" name="novaSenha" 
            placeholder="Nova senha" required>
-    <button type="submit">Redefinir senha</button>
+    <div class="button"> 
+    <button class="btn" type="submit">Redefinir senha</button>
+    </div>
   </form>
-  <button (click)="etapa = 1">Voltar</button>
+  <div class="button">
+    <button class="primary" (click)="etapa = 1">Voltar</button>
+  </div>
 </div>
 
 <p [class.sucesso]="mensagem.includes('sucesso')" 
    [class.erro]="mensagem.includes('Erro')">
   {{mensagem}}
 </p>
+</div>
