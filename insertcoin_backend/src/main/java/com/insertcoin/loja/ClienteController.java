@@ -31,11 +31,17 @@ public class ClienteController {
     @PostMapping("/api/cliente") 
     public String gravar(@Valid @RequestBody Cliente obj){
         obj.setSenha(util.md5(obj.getSenha()));
+
+        String token = UUID.randomUUID().toString();
+        obj.setTokenConfirmacao(token);
+        obj.setTokenConfirmacaoExpiracao(new Date(System.currentTimeMillis() + 86400000)); 
+
         bd.save(obj);
+
         String email = "<b>Email de confirmação de cadastro</b><br><br>" +
                     "seja bem vindo, "+ obj.getNome() + ", clique no link abaixo para "+
                     "confirmar o seu cadastro.<br><br>"+
-                    "<a href='http://localhost:8081/api/cliente/efetivar/"+ util.md5(obj.getEmail()) +"'>Clique aqui</a>";
+                    "<a href='http://localhost:8080/api/cliente/confirmar/"+ token +"'>Clique aqui</a>";
         String retorno = util.enviaEmailHTML(obj.getEmail(), "Confirmação de novo cadastro", email);
         System.out.println("Cliente gravado com sucesso! "+ retorno);
 
@@ -73,13 +79,19 @@ public class ClienteController {
 
     @PostMapping("/api/cliente/login")
     public Cliente fazerLogin(@RequestBody Cliente obj){
+         System.out.println("Email recebido: " + obj.getEmail()); 
+         System.out.println("Senha recebida: " + obj.getSenha()); 
+
          obj.setSenha(util.md5(obj.getSenha()));
+         System.out.println("Senha MD5: " + obj.getSenha());
+
        Optional<Cliente> retorno 
        =  bd.fazerLogin(obj.getEmail(), obj.getSenha());
        if(retorno.isPresent()){
              System.out.println("Login efetuado com sucesso!");
             return retorno.get();
        } else {
+            System.out.println("Falha no login!");
             return new Cliente();
        }
     }
@@ -95,7 +107,7 @@ public class ClienteController {
     if(clienteOpt.isPresent()) {
         Cliente cliente = clienteOpt.get();
         
-        String token = UUID.randomUUID().toString();
+        String token = String.valueOf((int)(Math.random() * 900000) + 100000);
         
         cliente.setTokenRecuperacao(token);
         cliente.setTokenExpiracao(new Date(System.currentTimeMillis() + 3600000)); 
@@ -167,5 +179,62 @@ public class ClienteController {
          bd.save(obj);
          System.out.println("cliente liberado"); 
     }
+
+    @GetMapping("/api/cliente/confirmar/{token}")
+    public String confirmar(@PathVariable("token") String token){
+        Optional<Cliente> clienteOpt = bd.findByTokenConfirmacao(token);
+    
+        if(clienteOpt.isPresent()){
+        Cliente cliente = clienteOpt.get();
+        
+        
+        if(cliente.getTokenConfirmacaoExpiracao() != null && 
+           cliente.getTokenConfirmacaoExpiracao().before(new Date())){
+            return "Token expirado! Solicite um novo cadastro.";
+        }
+        
+        
+        cliente.setAtivo(1);
+        cliente.setTokenConfirmacao(null);
+        cliente.setTokenConfirmacaoExpiracao(null);
+        bd.save(cliente);
+        
+        System.out.println("Conta confirmada para: " + cliente.getEmail());
+        return "Conta confirmada com sucesso!";
+    }
+    
+    return "Token inválido!";
+}
+
+    @PostMapping("/api/contato")
+    public String enviarContato(@RequestBody Map<String, String> dados) {
+        String nome = dados.get("nome");
+        String telefone = dados.get("telefone");
+        String email = dados.get("email");
+        String assunto = dados.get("assunto");
+        String numeroPedido = dados.get("numeroPedido");
+        String mensagem = dados.get("mensagem");
+    
+    
+        if (nome == null || nome.isEmpty() || email == null || email.isEmpty() || mensagem == null || mensagem.isEmpty()) {
+        return "Erro: Campos obrigatórios não preenchidos.";
+        }
+    
+    
+        String corpoEmail = "<b>Nova mensagem de contato</b><br><br>" +
+                        "Nome: " + nome + "<br>" +
+                        "Telefone: " + telefone + "<br>" +
+                        "Email: " + email + "<br>" +
+                        "Assunto: " + assunto + "<br>" +
+                        "Número do Pedido: " + numeroPedido + "<br><br>" +
+                        "Mensagem:<br>" + mensagem.replace("\n", "<br>");
+    
+    
+        String seuEmail = "vsbarcellos20@gmail.com";  // Substitua pelo seu email real
+        String retorno = util.enviaEmailHTML(seuEmail, "Nova mensagem de contato: " + assunto, corpoEmail);
+    
+        System.out.println("Email de contato enviado: " + retorno);
+    return retorno;
+}
 }
 

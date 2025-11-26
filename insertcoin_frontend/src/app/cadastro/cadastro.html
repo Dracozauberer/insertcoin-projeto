@@ -3,7 +3,7 @@
    <h1>Cadastro de cliente</h1>
    <div class="alert alert-info">{{mensagem}}</div>
 
-   <form action="cadastro-form">
+   <form (ngSubmit)="gravar()" #cadastroForm="ngForm">
       <div>
          <div>
             <label class="form-label">Nome:</label>
@@ -59,7 +59,7 @@
       </div>
       
       <div class="button-enviar">
-         <button class="btn btn-success" type="button" (click)="gravar()">Enviar</button>
+         <button class="btn btn-success" type="submit">Enviar</button>
       </div>
    </form>
 </div>

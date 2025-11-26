@@ -41,6 +41,12 @@ public class Cliente {
     @Column(nullable = true)    
     private Date tokenExpiracao;
 
+    @Column(nullable = true)
+    private String tokenConfirmacao;
+    
+    @Column(nullable = true)    
+    private Date tokenConfirmacaoExpiracao;
+
     public int getCodigo() {
         return codigo;
     }
@@ -120,6 +126,19 @@ public class Cliente {
         this.tokenExpiracao = tokenExpiracao;
     }
 
-  
+    public String getTokenConfirmacao() {
+        return tokenConfirmacao;
+    }   
+    public void setTokenConfirmacao(String tokenConfirmacao) {
+        this.tokenConfirmacao = tokenConfirmacao;
+    }
+
+    public Date getTokenConfirmacaoExpiracao() {
+        return tokenConfirmacaoExpiracao;
+    }
+
+    public void setTokenConfirmacaoExpiracao(Date tokenConfirmacaoExpiracao) {
+        this.tokenConfirmacaoExpiracao = tokenConfirmacaoExpiracao;
+    }
     
 }

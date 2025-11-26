@@ -25,5 +25,6 @@ JpaRepository<Cliente, Integer>{
     @Query(value = "select * from cliente where token_recuperacao=?1", nativeQuery = true)
     Optional<Cliente> findByTokenRecuperacao(String token);
 
-    
+    @Query(value = "select * from cliente where token_confirmacao=?1", nativeQuery = true)
+    Optional<Cliente> findByTokenConfirmacao(String token);
 }

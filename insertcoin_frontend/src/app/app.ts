@@ -18,14 +18,12 @@ import { Cliente } from './model/cliente';
   styleUrl: './app.css'
 })
 export class App {
-
-  title = 'frontend';
-  usuarioLogado: Cliente | null = null;
   termoBusca: string = "";
   produtosBusca: Produto[] = [];
   mostrarResultados: boolean = false;
   carregando: boolean = false;
-
+  title = 'frontend';
+  usuarioLogado: Cliente | null = null;
   quantidadeCarrinho: number = 0; 
 
 constructor(
@@ -61,25 +59,14 @@ constructor(
     }
     
     this.carregando = true;
-    
 
-    this.produtoService.buscar(this.termoBusca).subscribe({
-      next: (dados) => {
-        console.log("Produtos encontrados:", dados);
-        this.produtosBusca = dados;
-        this.mostrarResultados = true;
-        this.carregando = false;
-      },
-      error: (erro) => {
-        console.error("Erro na busca:", erro);
-        alert("Erro ao buscar produtos!");
-        this.carregando = false;
-      }
-    });
+    this.router.navigate(['/vitrine'], { queryParams: { busca: this.termoBusca } });
+    this.termoBusca = "";
+    this.mostrarResultados = false;
+    this.carregando = false;
   }
   
   verProduto(codigo: number) {
-    this.mostrarResultados = false;
     this.termoBusca = "";
     this.router.navigate(['/produto', codigo]);
     
