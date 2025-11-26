@@ -3,10 +3,12 @@
     <div class="alert alert-warning" *ngIf="mensagem.length>0">{{mensagem}}</div>
   <div class="wrapper">
     <div class="card" *ngFor="let obj of lista">
+      <a [routerLink]="['/produto', obj.codigo]">
       <img class="card-img-top" 
         [src]="obj.codigo + '.jpg'" 
         [alt]="obj.nome"
         width="150px">
+      </a>
       <div class="card-body">
         <h4 class="card-title">{{obj.nome}}</h4>
         <div class="card-text"> 

@@ -10,7 +10,7 @@ export class ClienteService {
   constructor(private http: HttpClient) {  }
   
   gravar(obj:Cliente) : Observable<any> {
-    return this.http.post("http://localhost:8080/api/cliente", obj);
+    return this.http.post("http://localhost:8080/api/cliente", obj, { responseType: 'text' });
   }
   alterar(obj:Cliente) : Observable<any> {
     return this.http.put("http://localhost:8080/api/cliente", obj);

@@ -3,9 +3,8 @@ import { Produto } from '../model/produto';
 import { ProdutoService } from '../service/produto';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CarrinhoService } from '../service/carrinho.service';
-
 
 @Component({
   selector: 'app-vitrine',
@@ -15,15 +14,22 @@ import { CarrinhoService } from '../service/carrinho.service';
   styleUrl: './vitrine.css',
 })
 export class Vitrine implements OnInit {  
-  
+  termoBusca: string = "";
   mensagem: string = ""; 
   lista: Produto[] = [];
   carregando: boolean = false; 
   
-  constructor(private service: ProdutoService, private carrinhoService: CarrinhoService) {} 
+  constructor(
+    private service: ProdutoService, 
+    private carrinhoService: CarrinhoService, 
+    private route: ActivatedRoute
+  ) {} 
   
   ngOnInit(): void {
-    this.carregarLista();
+    this.route.queryParams.subscribe(params => {
+      this.termoBusca = params['busca'] || '';
+      this.carregarLista();
+    }); 
   }
   
   adicionarAoCarrinho(produto: any) {
@@ -34,18 +40,36 @@ export class Vitrine implements OnInit {
   carregarLista() {
     this.carregando = true; 
     
-    this.service.vitrine().subscribe({
-      next: (data) => {
-        console.log("✅ Produtos carregados:", data);  
-        this.mensagem = "";
-        this.lista = data;
-        this.carregando = false;  
-      },
-      error: (error) => {
-        console.error("❌ Erro ao carregar:", error);  
-        this.mensagem = "Ocorreu um erro, tente mais tarde!";
-        this.carregando = false;  
-      } 
-    });
+    if (this.termoBusca.trim()) {
+      
+      this.service.buscar(this.termoBusca).subscribe(
+        (data) => {  
+          console.log("✅ Produtos filtrados:", data);  
+          this.mensagem = data.length > 0 ? "" : "Nenhum produto encontrado para '" + this.termoBusca + "'.";
+          this.lista = data;
+          this.carregando = false;  
+        },
+        (error) => {  
+          console.error("❌ Erro na busca:", error);  
+          this.mensagem = "Erro na busca, tente novamente!";
+          this.carregando = false;  
+        }
+      );
+    } else {
+      
+      this.service.vitrine().subscribe(
+        (data) => {
+          console.log("✅ Produtos da vitrine:", data);  
+          this.mensagem = "";
+          this.lista = data;
+          this.carregando = false;  
+        },
+        (error) => {
+          console.error("❌ Erro ao carregar vitrine:", error);  
+          this.mensagem = "Ocorreu um erro, tente mais tarde!";
+          this.carregando = false;  
+        }
+      );
+    }
   }
 }

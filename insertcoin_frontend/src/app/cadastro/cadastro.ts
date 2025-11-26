@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component,  ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Cliente } from '../model/cliente';
 import { ClienteService } from '../service/cliente';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-cadastro',
@@ -12,17 +13,30 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './cadastro.css',
 })
 export class Cadastro {
+  @ViewChild('cadastroForm') cadastroForm?: NgForm;
+
   mensagem:String = "";
   obj:Cliente = new Cliente();
-  constructor(private service: ClienteService){}
+  constructor(private service: ClienteService, private router: Router){}
   
   gravar(){
 
      this.service.gravar(this.obj).subscribe({
         next:(data)=>{
           console.log("Resposta do backend:", data);
-          this.mensagem = "Cliente cadastro com sucesso!";
+          
           this.obj = new Cliente();
+
+          if (this.cadastroForm) {
+          this.cadastroForm.resetForm();
+        }
+
+          this.mensagem = "Cliente cadastrado com sucesso! Verifique seu email.";
+        
+          setTimeout(() => {
+          this.router.navigate(['/']);
+        }, 2000);
+
         },
         error:(error)=>{
           
