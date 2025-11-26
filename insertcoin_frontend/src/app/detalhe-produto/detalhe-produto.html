@@ -65,11 +65,11 @@
             <p>{{ produto.descritivo || 'Sem descrição disponível.' }}</p>
           </div>
           
-          <!-- QUANTIDADE E COMPRAR -->
+          <!-- QUANTIDADE E COMPRAR--> <!--removido type="number"-->-->
           <div *ngIf="produto.quantidade > 0" class="comprar-container">
             <div class="quantidade-selector">
               <button (click)="diminuirQuantidade()" [disabled]="quantidade <= 1">-</button>
-              <input type="number" [(ngModel)]="quantidade" min="1" [max]="produto.quantidade">
+              <input [(ngModel)]="quantidade" min="1" [max]="produto.quantidade">
               <button (click)="aumentarQuantidade()" [disabled]="quantidade >= produto.quantidade">+</button>
             </div>
             

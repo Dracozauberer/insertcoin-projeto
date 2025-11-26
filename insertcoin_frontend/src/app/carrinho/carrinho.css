@@ -4,16 +4,15 @@
   padding: 20px;
 }
 
-.carrinho-vazio {
-  text-align: center;
-  padding: 60px 20px;
-  background: #f8f9fa;
-  border-radius: 12px;
+.card{
+  display: grid;
+  place-items: center;
 }
 
 .btn{
   font-size:20px;
 }
+
 .carrinho-vazio p {
   font-size: 20px;
   color: #666;
@@ -154,17 +153,6 @@
   margin-top: 15px;
 }
 
-
-.btn{
-  width: 300px;
-  padding: 15px;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s;
-  margin-top: 10px;
-}
-
 .button{
   display: grid;
   gap:10px;
@@ -172,16 +160,27 @@
   align-items: center;
 }
 
+.btn{
+  width: 300px;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 10px;
+}
 
 button.primary{
-    background:var(--accent);
-    color:white;
-    padding:10px 14px;
-    border-radius:10px;
-    font-weight:600;
-    cursor:pointer;
-    border:1px solid #e6e9f2;
+  width: 300px;
+  padding: 15px;
+  border-radius:10px;
+  background:var(--accent);
+  color:white;
+  cursor:pointer;
+  border:1px solid #e6e9f2;
+  margin: 10px;
 }
+
 
 .btn-finalizar {
   background: #28a745;
@@ -218,7 +217,8 @@ button.primary{
   }
 
   .button{
-    display: block;
+    display: grid;
+    gap:10px;
     justify-content: center;
     align-items: center;
   }

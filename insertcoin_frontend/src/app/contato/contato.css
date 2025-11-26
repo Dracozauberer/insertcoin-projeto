@@ -53,7 +53,12 @@ input:focus, select:focus, textarea:focus{
     border-color:var(--accent);
 }
 
-
+.actions{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+    gap: 0px;
+}
 .help{font-size:13px;
     color:var(--muted);
 }

@@ -127,17 +127,17 @@
 }
 
 .acoes {
-  display: flex;
-  gap: 15px;
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap:10px;
+  justify-content: center;
+  align-items: center;
 }
 
-.btn-voltar,
-.btn {
+button.btn {
+  padding:18px;
+  border-radius:10px;
   flex: 1;
-  padding: 18px;
-  border: none;
-  border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
@@ -152,6 +152,7 @@ button.primary{
     font-weight:600;
     cursor:pointer;
     border:1px solid #e6e9f2;
+    margin: 0;
 }
 
 .btn-voltar {

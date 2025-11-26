@@ -1,0 +1,14 @@
+.img-card{
+    background: linear-gradient(rgba(0,0,15,0.9), rgba(0,0,15,0.4)), url("/pessoas_jogando.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.pixel-image{
+    background: linear-gradient(rgba(0,0,15,0.7), rgba(0,0,15,0.4)), url("/nintendo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
