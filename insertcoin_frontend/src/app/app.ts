@@ -8,12 +8,12 @@ import { Produto } from './model/produto';
 import { CarrinhoService } from './service/carrinho.service';
 import { AuthService } from './service/auth.service';
 import { Cliente } from './model/cliente';
-
+import { RouterModule } from '@angular/router'; 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Home, FormsModule, CommonModule],
+  imports: [RouterOutlet, Home, FormsModule, CommonModule, RouterModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -12,6 +12,7 @@ import { PedidoConfirmado } from './pedido-confirmado/pedido-confirmado';
 import { AuthGuard } from './auth-guard';
 import { LoginGuard } from './login-guard';
 import { Recsenha } from './recsenha/recsenha';
+import { MeusPedidos } from './meus-pedidos/meus-pedidos';
 
 
 export const routes: Routes = [
@@ -25,8 +26,10 @@ export const routes: Routes = [
   { path: 'carrinho', component: Carrinho }, 
   { path: 'checkout', component: Checkout, canActivate: [AuthGuard]  },
   { path: 'pedido-confirmado', component: PedidoConfirmado, canActivate: [AuthGuard]},
+  { path: 'meus-pedidos', component: MeusPedidos, canActivate: [AuthGuard]},
   { path: 'login', component: Login, canActivate: [LoginGuard] },
   { path: 'recsenha', component: Recsenha }
+  
 
 
 ];

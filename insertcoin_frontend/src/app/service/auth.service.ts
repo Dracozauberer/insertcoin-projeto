@@ -11,6 +11,10 @@ export class AuthService {
   private usuarioLogadoSubject: BehaviorSubject<Cliente | null>;
   public usuarioLogado$: Observable<Cliente | null>;
   
+  public getUsuarioLogado(): Cliente | null {
+    return this.usuarioLogadoSubject.value;
+  }
+  
   constructor(private http: HttpClient) {
     const usuarioSalvo = localStorage.getItem('usuario');
     const usuario = usuarioSalvo ? JSON.parse(usuarioSalvo) : null;

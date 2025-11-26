@@ -1,0 +1,22 @@
+<main>
+  <h1>Meus Pedidos</h1>
+  <div *ngIf="mensagem" class="alert">{{mensagem}}</div>
+  
+  <div *ngIf="carregando">Carregando...</div>
+  
+  <div *ngFor="let pedido of pedidos" class="pedido-card">
+    <h3>Pedido #{{pedido.codigo}}</h3>
+    <p><strong>Data:</strong> {{pedido.dataPedido | date:'dd/MM/yyyy HH:mm'}}</p>
+    <p><strong>Status:</strong> {{pedido.status}}</p>
+    <p><strong>Total:</strong> R$ {{pedido.total}}</p>
+    
+    <details>
+      <summary>Itens do Pedido</summary>
+      <ul>
+        <li *ngFor="let item of pedido.itens">
+          {{item.quantidade}}x {{item.produto?.nome}} - R$ {{item.precoUnitario}}
+        </li>
+      </ul>
+    </details>
+  </div>
+</main>
